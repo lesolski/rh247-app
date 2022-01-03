@@ -7,8 +7,10 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import ExpenseScreen from './screens/ExpenseScreen';
 import HomeScreen from './screens/HomeScreen';
 import DrawerContent from './screens/DrawerContent';
+import { Ionicons } from '@expo/vector-icons';
 
-const Drawer = createDrawerNavigator();
+import COLORS from './constants/colors'
+
 
 const MyTheme = {
   ...DefaultTheme,
@@ -18,6 +20,8 @@ const MyTheme = {
   },
 };
 
+const Drawer = createDrawerNavigator();
+
 export default function App() {
   return (
     <NavigationContainer theme={MyTheme}>
@@ -25,7 +29,8 @@ export default function App() {
         initialRouteName="Home" 
         drawerContent={props => <DrawerContent {...props} />}
         screenOptions={{
-          headerStyle: { backgroundColor:'rgb(55,127,242)' },
+          drawerType:'back',
+          headerStyle: { backgroundColor: COLORS.primary },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight:'bold',
@@ -33,13 +38,67 @@ export default function App() {
           }
         }}
         >
-        {/* Registering Screens with Navigator*/}
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Claim Invoice" component={ExpenseScreen} options={{style:{backgroundColor:'white'}}} />
-        <Drawer.Screen name="Rides" component={ExpenseScreen} />
-        <Drawer.Screen name="Support" component={ExpenseScreen} />
-        <Drawer.Screen name="Settings" component={ExpenseScreen} />
-        <Drawer.Screen name="Sign Out" component={ExpenseScreen} />
+
+        {/* REGISTERING SCREENS*/}
+        <Drawer.Screen
+          name="Home" 
+          component={ExpenseScreen} 
+          options={{
+            style:{backgroundColor:'white'},
+            drawerLabel:'Home',
+            drawerIcon: ({focused, size}) => (
+              <Ionicons
+                name= {focused ? 'home' : 'home-outline'}
+                size={size}
+                color={focused ? COLORS.primary: 'grey'}
+              />
+            ),
+          }}
+        />
+
+        <Drawer.Screen 
+          name="Profile" 
+          component={ExpenseScreen} 
+          options={{
+            style:{backgroundColor:'white'},
+            title:'Profile',
+            drawerIcon: ({focused, size}) => (
+              <Ionicons
+                name= {focused ? 'person' : 'person-outline'}
+                size={size}
+                color={focused ? COLORS.primary: 'grey'}
+              />
+            ),
+          }}
+        />
+
+        <Drawer.Screen name="Rides" component={ExpenseScreen} 
+        options={{
+            title:'Rides',
+            drawerIcon: ({focused, size}) => (
+              <Ionicons
+                name= {focused ? 'car' : 'car-outline'}
+                size={size}
+                color={focused ? COLORS.primary: 'grey'}
+              />
+            ),
+        }}
+        />
+
+        <Drawer.Screen 
+          name="Supports" 
+          component={ExpenseScreen} 
+          options={{
+            title:'Supports',
+            drawerIcon: ({focused, size}) => (
+              <Ionicons
+              name= {focused ? 'people' : 'people-outline'}
+              size={size}
+              color={focused ? COLORS.primary: 'grey'}
+              />
+           ),
+          }} 
+        />
 
       </Drawer.Navigator>
     </NavigationContainer>
