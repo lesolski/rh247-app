@@ -30,15 +30,18 @@ const DrawerContent = props => {
             </SafeAreaView>
 
             {/* Render Screen Fields */}
-            <DrawerItemList {...props} />
+            <DrawerItemList {...props} 
+            labelStyle={{fontFamily: 'roboto-mono'}}
+            />
             
             {/* Push down the Signout Button */}
-            <View style={{height:200}}>
+            <View style={{height:150}}>
             </View>
-            <Switch></Switch>
+
             {/** Sign-Out Button */}
             <DrawerItem 
               label="Sign Out"
+              labelStyle={{fontFamily:'roboto-mono'}}
               icon={({ size, focused}) => (
                 <Ionicons
                   name="log-out-outline"
@@ -59,14 +62,17 @@ const styles = StyleSheet.create({
   },
 
   avatar:{
-    borderRadius:75,
     width:150,
     height:150,
     marginLeft:16,
+    borderRadius:75,
+    borderColor: COLORS.primary,
+    borderWidth:2, 
     overflow:'hidden',
     shadowColor: 'black',
     shadowOffset: {width:5, height:5},
-    shadowOpacity:0.8
+    shadowOpacity:0.8,
+    
   },
   userText:{
     marginLeft:16,
@@ -74,7 +80,8 @@ const styles = StyleSheet.create({
     marginBottom:15,
     fontSize:25,
     fontWeight:'600',
-    color: 'grey'
+    color: 'white',
+    fontFamily:'roboto-mono'
   }
 });
 

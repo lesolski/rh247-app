@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { Button } from 'react-native'
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, DarkTheme} from '@react-navigation/native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 
 // import screens
-import ExpenseScreen from './screens/ExpenseScreen';
-import HomeScreen from './screens/HomeScreen';
 import DrawerContent from './screens/DrawerContent';
+import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ExpenseScreen from './screens/ExpenseScreen';
+import HelpScreen from './screens/HelpScreen';
+import CScreen from './navigation/ColleaguesTabNavigation'
 
 // styling imports
 import COLORS from './constants/colors'
@@ -26,7 +30,7 @@ const MyTheme = {
 };
 
 const fetchFonts = () => {
-  Font.loadAsync({
+  return Font.loadAsync({
     'roboto-mono': require('./assets/fonts/roboto-mono-regular.ttf')
   });
 };
@@ -38,13 +42,10 @@ export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   if (!fontLoaded){
-    console.log('aaaa')
     return <AppLoading
-    startAsync={fetchFonts}
-    onFinish={() => setFontLoaded(true)}
-    onError={(err) => {
-      return console.log(err);
-    }}
+      startAsync={fetchFonts}
+      onFinish={() => setFontLoaded(true)}
+      onError={(err) => console.log(err)}
     />
   };
 
@@ -54,14 +55,17 @@ export default function App() {
         initialRouteName="Home" 
         drawerContent={props => <DrawerContent {...props} />}
         screenOptions={{
-          drawerActiveTintColor:'rgb(29,185,84)',
+          drawerActiveTintColor: COLORS.primary,
           drawerType:'back',
-          headerStyle: { backgroundColor: COLORS.primary },
-          headerTintColor: COLORS.background, 
+          headerStyle: { backgroundColor: COLORS.foreground, borderBottomColor: COLORS.primary, borderBottomWidth:2, },
+          headerTintColor: COLORS.primary, 
           headerTitleStyle: {
-            fontWeight:'bold',
-            fontSize:20
-          }
+            fontSize:20,
+            fontFamily: 'roboto-mono',
+          },
+          drawerLabelStyle:{
+              fontFamily:'roboto-mono',
+            }
         }}
         >
 
@@ -70,7 +74,6 @@ export default function App() {
           name="Home" 
           component={HomeScreen} 
           options={{
-            style:{backgroundColor:'white'},
             drawerLabel:'Home',
             drawerIcon: ({focused, size}) => (
               <Ionicons
@@ -84,9 +87,8 @@ export default function App() {
 
         <Drawer.Screen 
           name="Profile" 
-          component={ExpenseScreen} 
+          component={ProfileScreen} 
           options={{
-            style:{backgroundColor:'white'},
             title:'Profile',
             drawerIcon: ({focused, size}) => (
               <Ionicons
@@ -97,9 +99,25 @@ export default function App() {
             ),
           }}
         />
+        <Drawer.Screen 
+          name="Reports" 
+          component={HomeScreen} 
+          options={{
+            title:'Reports',
+            drawerIcon: ({focused, size}) => (
+              <Ionicons
+              name='logo-stackoverflow'
+              size={size}
+              color={focused ? COLORS.primary: 'grey'}
+              />
+           ),
+          }} 
+        />
 
-        <Drawer.Screen name="Rides" component={ExpenseScreen} 
-        options={{
+        <Drawer.Screen 
+          name="Rides" 
+          component={HomeScreen} 
+          options={{
             title:'Rides',
             drawerIcon: ({focused, size}) => (
               <Ionicons
@@ -111,14 +129,51 @@ export default function App() {
         }}
         />
 
-        <Drawer.Screen 
-          name="Supports" 
+        <Drawer.Screen
+          name="Claim Invoice" 
           component={ExpenseScreen} 
           options={{
-            title:'Supports',
+            drawerLabel:'Claim Invoice',
             drawerIcon: ({focused, size}) => (
               <Ionicons
+                name= {focused ? 'receipt' : 'receipt-outline'}
+                size={size}
+                color={focused ? COLORS.primary: 'grey'}
+              />
+            ),
+          }}
+        />
+
+        <Drawer.Screen 
+          name="Colleagues" 
+          component={CScreen} 
+          options={{
+          headerRight: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#fff"
+            />
+          ),
+          title:'Colleagues',
+          drawerIcon: ({focused, size}) => (
+            <Ionicons
               name= {focused ? 'people' : 'people-outline'}
+              size={size}
+              color={focused ? COLORS.primary: 'grey'}
+              />
+           ),
+          }} 
+        />
+
+        <Drawer.Screen 
+          name="Help" 
+          component={HelpScreen} 
+          options={{
+            title:'Help',
+            drawerIcon: ({focused, size}) => (
+              <Ionicons
+              name= {focused ? 'help-circle' : 'help-circle-outline'}
               size={size}
               color={focused ? COLORS.primary: 'grey'}
               />

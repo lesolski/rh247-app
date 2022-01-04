@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard} from 'react-native';
 
+
+import COLORS from '../constants/colors';
+import { Ionicons } from '@expo/vector-icons';
+
 import Card from '../components/Card';
-import SelectCard from '../components/SelectCard'
+import SelectCard from '../components/SelectCard';
+import CategoryCard from '../components/CategoryCard';
 
 const ExpenseScreen = props => {
 
@@ -16,54 +21,76 @@ const ExpenseScreen = props => {
             <Text style={styles.categoryTitleText}>Choose Date</Text>
         </View>
         <View style={{flexDirection:'row'}}>
-            <SelectCard
+          <SelectCard
               dateNum={1}
-              dayName='Sat'>
+              dayName='Sat'
+              style={styles.date}>
+          </SelectCard>
+          <SelectCard
+              dateNum={2}
+              dayName='Sat'
+              style={styles.date}>
            </SelectCard>
-            <Card style={styles.date}>
-              <Text style={styles.dateText}>2</Text>
-              <Text>Sun.</Text>
-            </Card>
-            <SelectCard>
-                <Text style={styles.dateText}>3</Text>
-                <Text>Mon.</Text>
-            </SelectCard>
-            <Card style={styles.date}>
-                <Text style={styles.dateText}>4</Text>
-                <Text>Tue.</Text>
-            </Card>
-            <SelectCard style={styles.date}>
-                <Text style={styles.dateText}>5</Text>
-                <Text>Wed.</Text>
-            </SelectCard>
+          <SelectCard
+              dateNum={3}
+              dayName='Sat'
+              style={styles.date}>
+           </SelectCard>
+          <SelectCard
+              dateNum={4}
+              dayName='Sat'
+              style={styles.date}>
+          </SelectCard>
+          <SelectCard
+            dateNum={5}
+            dayName='Sat'
+            style={styles.date}>
+           </SelectCard>
+
+            
         </View>
         <View style={styles.categoryTitle}>
             <Text style={styles.categoryTitleText}>Category</Text>
         </View>
         <View style={styles.categoryContainer}>
-            <View style={{flexDirection:'row'}}>
-                <SelectCard style={styles.card}>
-                    <Text style={styles.textStyle}>🏗 Site</Text>
-                </SelectCard>
-                <Card style={styles.card}>
-                    <Text style={styles.textStyle}>🗺 Travel</Text>
-                </Card>
-            </View >
-            <View style={{flexDirection:'row'}}>
-                <Card style={styles.card}>
-                    <Text style={styles.textStyle}>🛠 Tools </Text>
-                </Card>
-                <Card style={styles.card}>
-                    <Text style={styles.textStyle}>🔩 Materials </Text>
-                </Card>
-            </View>
+          <View style={{flexDirection:'row'}}>
+            <CategoryCard 
+              style={styles.card} 
+              category={'site'} 
+              icon={'desktop-outline'}>
+            </CategoryCard>
+            <CategoryCard 
+              style={styles.card} 
+              category={"materials"}>
+            </CategoryCard>
+          </View >
+
+          <View style={{flexDirection:'row'}}>
+            <CategoryCard 
+              style={styles.card} 
+              category={"travel"} 
+              icon={"airplane-outline"}>
+            </CategoryCard>
+            <CategoryCard 
+              style={styles.card} 
+              category={"tools"} 
+              icon={"construct-outline"}>
+            </CategoryCard>
+           </View>
         </View>
+
         <View style={styles.categoryTitle}>
             <Text style={styles.categoryTitleText}>Amount</Text>
         </View>
+
         <View style={{flexDirection:'row'}}>
             <View style={styles.input}>
-                <TextInput style={{width:'100%', height:'100%', fontSize:30, textAlign:'center'}} placeholder="€" keyboardType='numeric'/>
+                <TextInput 
+                  style={{width:'100%', height:'100%', fontSize:30, textAlign:'center', color:COLORS.text}} 
+                  placeholder="€" 
+                  placeholderTextColor={COLORS.primary}
+                  keyboardType='numeric'
+                  keyboardAppearance='dark'/>
             </View>
         </View>
         {/* UPLOAD PICTURE TITLE */}
@@ -72,15 +99,19 @@ const ExpenseScreen = props => {
         </View>
         {/* UPLOAD PICTURE CARD */}
         <View style={styles.cameraUploadBox}>
-            <TouchableOpacity>
-            <Text style={styles.cameraIcon}>📷</Text>
+            <TouchableOpacity style={{alignItems:'center'}}>
+              <Ionicons 
+                name="camera-outline"
+                size={60}
+                color={COLORS.primary}
+              />
+              <Text style={{color: COLORS.text, fontFamily:'roboto-mono'}}>Click on camera to add a photo</Text>
             </TouchableOpacity>
-            <Text style={{fontWeight:'500', color:'grey'}}>Click on camera to take a pic</Text>
         </View>
         {/* SUBMIT BUTTON */}
-        <View style={styles.submitButton}>
-            <Text style={styles.buttonText}>Add Expense</Text>
-        </View>
+        <TouchableOpacity style={styles.submitButton}>
+            <Text style={styles.buttonText}>Claim</Text>
+        </TouchableOpacity>
     </View>
     </View>
     </TouchableWithoutFeedback>
@@ -101,13 +132,15 @@ const styles = StyleSheet.create({
         margin:5,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'white',
+        backgroundColor: COLORS.foreground,
+        borderRadius:10,
     },
+
     input: {
         width:'100%',
         height:50,
         shadowColor:'black',
-        backgroundColor:'white',
+        backgroundColor: COLORS.foreground,
         shadowOffset: {width:4, height:4},
         shadowRadius:6,
         shadowOpacity:0.3,
@@ -118,7 +151,8 @@ const styles = StyleSheet.create({
     textStyle: {
         fontSize:20,
         fontWeight:'400',
-        color:'black'
+        color: COLORS.text,
+        fontFamily:'roboto-mono'
     },
     categoryTitle: {
         marginTop:13,
@@ -130,7 +164,8 @@ const styles = StyleSheet.create({
     categoryTitleText: {
         fontSize:20,
         fontWeight:'300',
-        color:'grey'
+        color:'grey',
+        fontFamily:'roboto-mono'
     },
     categoryContainer: {
         flexDirection:'column',
@@ -138,9 +173,9 @@ const styles = StyleSheet.create({
     },
     cameraUploadBox:{
         width:'100%',
-        height:'20%',
+        height:'22%',
         borderRadius:10,
-        backgroundColor:'white',
+        backgroundColor: COLORS.foreground,
         alignItems:'center',
         justifyContent:'center',
         shadowOpacity:0.3,
@@ -152,38 +187,39 @@ const styles = StyleSheet.create({
         fontSize:75
     },
     submitButton:{
-        marginTop:20,
+        marginTop:28,
         height:50,
-        width:'100%',
+        width:'50%',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'rgb(55,127,242)',
+        backgroundColor: COLORS.background,
+        borderColor: COLORS.primary,
+        borderWidth: 3,
         borderRadius:15,
     },
     buttonText:{
         fontSize:25,
         fontWeight:'bold',
-        color:'white'
+        color: COLORS.primary,
+        fontFamily:'roboto-mono'
     },
     date:{
-       flex:1,
-       height:70,
-       marginHorizontal:10,
-       justifyContent:'center',
-       alignItems:'center',
+      flex:1,
+      height:70,
+      marginHorizontal:6,
+      justifyContent:'center',
+      alignItems:'center',
       shadowColor:'black',
-        shadowOpacity: 0.10,
+      shadowOpacity: 0.10,
         shadowOffset: {width:4, height:4},
         shadowRadius:6,
         backgroundColor:'white',
         borderRadius:10
-
     },
     dateText:{
         fontSize:25,
         fontWeight:'600',
         marginBottom:3,
-        color:'grey'
     }
 });
 
