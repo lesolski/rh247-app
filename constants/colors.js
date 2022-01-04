@@ -1,4 +1,5 @@
 export default {
-  primary:'rgb(55,127,242)',
-  secondary:'rgb(227,238,253))'
+  primary:'rgb(29,185,84)',
+  secondary:'rgb(29,185,84)',
+  background:'rgb(18,18,19)'
 };

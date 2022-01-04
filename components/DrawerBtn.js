@@ -1,16 +1,15 @@
 import React from 'react'
 import {
-    View, 
-    Text, 
-    StyleSheet, 
-    SafeAreaView, 
-    TouchableOpacity
+  View, 
+  Text, 
+  StyleSheet, 
+  SafeAreaView, 
+  TouchableOpacity
 } from 'react-native';
+
 import {FontAwesome5} from '@expo/vector-icons'
 
-
-
-const Screen = props => {
+const DrawerBtn = props => {
     return (
         <View style={styles.container}>
             <SafeAreaView style={{flex:1}}>
@@ -39,12 +38,6 @@ const styles = StyleSheet.create({
         fontSize:25,
         fontWeight:'500'
     }
-
-
-
 });
 
-
-
-
-export default Screen;
+export default DrawerButton;

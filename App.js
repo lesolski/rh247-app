@@ -1,37 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme} from '@react-navigation/native';
 
 // import screens
 import ExpenseScreen from './screens/ExpenseScreen';
 import HomeScreen from './screens/HomeScreen';
 import DrawerContent from './screens/DrawerContent';
-import { Ionicons } from '@expo/vector-icons';
 
+// styling imports
 import COLORS from './constants/colors'
+import { Ionicons } from '@expo/vector-icons';
+import * as Font from 'expo-font';
 
+// expo imports
+import AppLoading  from 'expo-app-loading';
 
+// THEME SETTINGS
 const MyTheme = {
-  ...DefaultTheme,
+  ...DarkTheme,
   colors: {
-    ...DefaultTheme.colors,
-    background: 'white'
+    ...DarkTheme.colors,
+    background: 'rgb(33, 33, 33)'
   },
+};
+
+const fetchFonts = () => {
+  Font.loadAsync({
+    'roboto-mono': require('./assets/fonts/roboto-mono-regular.ttf')
+  });
 };
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  // Loader
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  if (!fontLoaded){
+    console.log('aaaa')
+    return <AppLoading
+    startAsync={fetchFonts}
+    onFinish={() => setFontLoaded(true)}
+    onError={(err) => {
+      return console.log(err);
+    }}
+    />
+  };
+
   return (
     <NavigationContainer theme={MyTheme}>
       <Drawer.Navigator 
         initialRouteName="Home" 
         drawerContent={props => <DrawerContent {...props} />}
         screenOptions={{
+          drawerActiveTintColor:'rgb(29,185,84)',
           drawerType:'back',
           headerStyle: { backgroundColor: COLORS.primary },
-          headerTintColor: '#fff',
+          headerTintColor: COLORS.background, 
           headerTitleStyle: {
             fontWeight:'bold',
             fontSize:20
@@ -42,7 +68,7 @@ export default function App() {
         {/* REGISTERING SCREENS*/}
         <Drawer.Screen
           name="Home" 
-          component={ExpenseScreen} 
+          component={HomeScreen} 
           options={{
             style:{backgroundColor:'white'},
             drawerLabel:'Home',
