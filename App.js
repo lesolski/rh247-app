@@ -27,6 +27,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import ExpenseScreen from './screens/ExpenseScreen';
 import HelpScreen from './screens/HelpScreen';
 import ColleaguesScreen from './screens/ColleaguesScreen';
+import EmptyScreen from './screens/EmptyScreen';
 
 
 // THEME SETTINGS
@@ -34,7 +35,7 @@ const MyTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    background: 'rgb(33, 33, 33)'
+    background:COLORS.background 
   }
 };
 
@@ -68,7 +69,7 @@ export default function App() {
         screenOptions={{
           drawerActiveTintColor: COLORS.primary,
           drawerType:'back',
-          headerStyle: { backgroundColor: COLORS.foreground, borderBottomColor: COLORS.primary, borderBottomWidth:2, },
+          headerStyle: { backgroundColor: COLORS.foreground, borderBottomColor: COLORS.primary, borderBottomWidth:2},
           headerTintColor: COLORS.primary, 
           headerTitleStyle: {
             fontSize:20,
@@ -112,7 +113,7 @@ export default function App() {
         />
         <Drawer.Screen 
           name="Reports" 
-          component={HomeScreen} 
+          component={EmptyScreen} 
           options={{
             title:'Reports',
             drawerIcon: ({focused, size}) => (
@@ -127,7 +128,7 @@ export default function App() {
 
         <Drawer.Screen 
           name="Rides" 
-          component={HomeScreen} 
+          component={EmptyScreen} 
           options={{
             title:'Rides',
             drawerIcon: ({focused, size}) => (

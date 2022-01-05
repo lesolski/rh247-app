@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: {width:5, height:5},
     shadowOpacity:0.8,
-    
   },
+
   userText:{
     marginLeft:16,
     marginVertical: 12,
@@ -86,7 +86,5 @@ const styles = StyleSheet.create({
     fontFamily:'roboto-mono'
   }
 });
-
-
 
 export default DrawerContent;

@@ -1,7 +1,7 @@
 // ./screens/ColleaguesScreen.js 
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Alert, TouchableOpacity } from 'react-native';
 
 import ProfileModal from '../components/ProfileModal';
 
@@ -25,7 +25,7 @@ const renderItem = ({ item, props }) => {
         <Text style={[styles.text, ]}>{item.email}</Text>
       </View>
       <View style={{flexDirection:'row', flex:1, justifyContent:'flex-end', marginRight:6}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert(item.phone)}>
           <Ionicons 
             name='logo-whatsapp'
             size={36}
