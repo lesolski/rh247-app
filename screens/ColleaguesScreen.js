@@ -1,25 +1,37 @@
+// ./screens/ColleaguesScreen.js 
+
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, Modal } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Modal, TouchableOpacity } from 'react-native';
 
 import ProfileModal from '../components/ProfileModal';
 
 import COLORS from '../constants/colors';
 import DATA from '../data/colleagues';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const renderItem = ({ item, props }) => {
   return ( 
     <View style={{flexDirection:'row', marginVertical:6, alignItems:'center', backgroundColor:COLORS.foreground, paddingVertical:10, borderRadius:15, overflow:'hidden'}}>
-        <View style={{overflow:'hidden', alignItems:'center', justifyContent:'center', height:50, width:50, backgroundColor:COLORS.primary, borderRadius:25, marginLeft:20, marginRight:20}}>
-         <Image 
+      <View style={{overflow:'hidden', alignItems:'center', justifyContent:'center', height:50, width:50, backgroundColor:COLORS.primary, borderRadius:25, marginLeft:20, marginRight:20}}>
+        <Image 
           source={{uri: item.image}} 
           style={{height:50, width:50}}
-          />
-        </View>
-      <View>
+        />
+      </View>
+      <View style={{maxWidth:200}}>
         <Text style={[styles.text, {fontSize:16, color:COLORS.primary}]}>{item.name + ' ' + item.lastname}</Text>
         <Text style={[styles.text, ]}>{item.city}</Text>
         <Text style={[styles.text, ]}>{item.email}</Text>
+      </View>
+      <View style={{flexDirection:'row', flex:1, justifyContent:'flex-end', marginRight:6}}>
+        <TouchableOpacity>
+          <Ionicons 
+            name='logo-whatsapp'
+            size={36}
+            color={COLORS.primary}
+          />
+        </TouchableOpacity>
       </View>
     </View>);
 };

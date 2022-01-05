@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons'
-import COLORS from '../constants/colors'
+import { Ionicons } from '@expo/vector-icons';
+import COLORS from '../constants/colors';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -21,7 +21,6 @@ const SecondScreen = props => {
         <Text style={styles.text}>This is version v0.0.1</Text>
         <Text style={[styles.text, {fontSize:14}]}>Now piss off.</Text>
       </View>
-
   );
 };
 
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
 
 const Tab = createBottomTabNavigator();
 
-const CScreen = ( navData ) => {
+const Tabs = ( navData ) => {
   return (
     <Tab.Navigator>
       <Tab.Screen 
@@ -75,4 +74,4 @@ const CScreen = ( navData ) => {
   );
 }
 
-export default CScreen;
+export default Tabs;

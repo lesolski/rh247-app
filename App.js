@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
-import { Button } from 'react-native'
+// ./App.js
 
+// React + RN
+import React, { useState } from 'react';
+
+// Redux
+import { createStore, combineReducers } from 'redux';
+
+// expo imports
+import AppLoading  from 'expo-app-loading';
+
+// React Navigation
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
-
-// import screens
-import DrawerContent from './screens/DrawerContent';
-import HomeScreen from './screens/HomeScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import ExpenseScreen from './screens/ExpenseScreen';
-import HelpScreen from './screens/HelpScreen';
-import CScreen from './navigation/ColleaguesTabNavigation'
 
 // styling imports
 import COLORS from './constants/colors'
 import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 
-// expo imports
-import AppLoading  from 'expo-app-loading';
+// Screens 
+import DrawerContent from './screens/DrawerScreen';
+import CScreen from './navigation/TabNavigation';
+
+import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ExpenseScreen from './screens/ExpenseScreen';
+import HelpScreen from './screens/HelpScreen';
+import ColleaguesScreen from './screens/ColleaguesScreen';
+
 
 // THEME SETTINGS
 const MyTheme = {
@@ -26,9 +35,10 @@ const MyTheme = {
   colors: {
     ...DarkTheme.colors,
     background: 'rgb(33, 33, 33)'
-  },
+  }
 };
 
+// load fonts first
 const fetchFonts = () => {
   return Font.loadAsync({
     'roboto-mono': require('./assets/fonts/roboto-mono-regular.ttf')
@@ -38,9 +48,10 @@ const fetchFonts = () => {
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  // Loader
+  // Loader state
   const [fontLoaded, setFontLoaded] = useState(false);
 
+  // Check wether or not the font is loaded
   if (!fontLoaded){
     return <AppLoading
       startAsync={fetchFonts}
@@ -146,15 +157,8 @@ export default function App() {
 
         <Drawer.Screen 
           name="Colleagues" 
-          component={CScreen} 
+          component={ColleaguesScreen} 
           options={{
-          headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="#fff"
-            />
-          ),
           title:'Colleagues',
           drawerIcon: ({focused, size}) => (
             <Ionicons
