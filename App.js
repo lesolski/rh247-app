@@ -2,33 +2,33 @@
 
 // React + RN
 import React, { useState } from 'react';
-
+import { Pressable, TouchableOpacity } from 'react-native';
 // Redux
 import { createStore, combineReducers } from 'redux';
 
-// expo imports
+// Expo imports
 import AppLoading  from 'expo-app-loading';
 
 // React Navigation
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme, DrawerActions } from '@react-navigation/native';
 
 // styling imports
 import COLORS from './constants/colors'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 
 // Screens 
 import DrawerContent from './screens/DrawerScreen';
-import CScreen from './navigation/TabNavigation';
-
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ExpenseScreen from './screens/ExpenseScreen';
 import HelpScreen from './screens/HelpScreen';
 import ColleaguesScreen from './screens/ColleaguesScreen';
+import RidesScreen from './screens/RidesScreen';
 import EmptyScreen from './screens/EmptyScreen';
 
+import StackNavigator from './navigation/SitesTabNavigation';
 
 // THEME SETTINGS
 const MyTheme = {
@@ -48,7 +48,7 @@ const fetchFonts = () => {
 
 const Drawer = createDrawerNavigator();
 
-export default function App() {
+export default function App( {navigation}) {
   // Loader state
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -66,7 +66,7 @@ export default function App() {
       <Drawer.Navigator 
         initialRouteName="Home" 
         drawerContent={props => <DrawerContent {...props} />}
-        screenOptions={{
+        screenOptions={ ({ navigation })  => ({
           drawerActiveTintColor: COLORS.primary,
           drawerType:'back',
           headerStyle: { backgroundColor: COLORS.foreground, borderBottomColor: COLORS.primary, borderBottomWidth:2},
@@ -77,9 +77,19 @@ export default function App() {
           },
           drawerLabelStyle:{
               fontFamily:'roboto-mono',
-            }
-        }}
-        >
+            },
+          headerLeft: () => (
+            <TouchableOpacity 
+              style={{marginLeft:10}} 
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())} >
+              <Ionicons
+                name= 'menu-outline'
+                size={28}
+                color={COLORS.primary}
+              />
+            </TouchableOpacity>
+          )}
+        )}>
 
         {/* REGISTERING SCREENS*/}
         <Drawer.Screen
@@ -98,37 +108,23 @@ export default function App() {
         />
 
         <Drawer.Screen 
-          name="Profile" 
-          component={ProfileScreen} 
+          name="CheckIns" 
+          component={EmptyScreen} 
           options={{
-            title:'Profile',
+            title:'Check IN/OUT',
             drawerIcon: ({focused, size}) => (
               <Ionicons
-                name= {focused ? 'person' : 'person-outline'}
+                name= {focused ? 'time' : 'time-outline'}
                 size={size}
                 color={focused ? COLORS.primary: 'grey'}
               />
             ),
           }}
         />
-        <Drawer.Screen 
-          name="Reports" 
-          component={EmptyScreen} 
-          options={{
-            title:'Reports',
-            drawerIcon: ({focused, size}) => (
-              <Ionicons
-              name='logo-stackoverflow'
-              size={size}
-              color={focused ? COLORS.primary: 'grey'}
-              />
-           ),
-          }} 
-        />
 
         <Drawer.Screen 
           name="Rides" 
-          component={EmptyScreen} 
+          component={RidesScreen} 
           options={{
             title:'Rides',
             drawerIcon: ({focused, size}) => (
@@ -138,14 +134,14 @@ export default function App() {
                 color={focused ? COLORS.primary: 'grey'}
               />
             ),
-        }}
+          }}
         />
 
         <Drawer.Screen
-          name="Claim Invoice" 
+          name="Invoices" 
           component={ExpenseScreen} 
           options={{
-            drawerLabel:'Claim Invoice',
+            drawerLabel:'Invoices',
             drawerIcon: ({focused, size}) => (
               <Ionicons
                 name= {focused ? 'receipt' : 'receipt-outline'}
@@ -154,6 +150,22 @@ export default function App() {
               />
             ),
           }}
+        />
+
+         <Drawer.Screen 
+          name="Sites" 
+          component={StackNavigator} 
+          options={{
+            title:'Sites',
+            drawerIcon: ({focused, size}) => (
+              <FontAwesome5
+              name='building'
+              size={size}
+              color={focused ? COLORS.primary: 'grey'}
+              />
+            ),
+            headerShown:false
+          }} 
         />
 
         <Drawer.Screen 
@@ -169,6 +181,21 @@ export default function App() {
               />
            ),
           }} 
+        />
+
+        <Drawer.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={{
+            title:'Profile',
+            drawerIcon: ({focused, size}) => (
+              <Ionicons
+                name= {focused ? 'person' : 'person-outline'}
+                size={size}
+                color={focused ? COLORS.primary: 'grey'}
+              />
+            ),
+          }}
         />
 
         <Drawer.Screen 
