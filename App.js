@@ -3,6 +3,7 @@
 // React + RN
 import React, { useState } from 'react';
 import { Pressable, TouchableOpacity } from 'react-native';
+
 // Redux
 import { createStore, combineReducers } from 'redux';
 
@@ -17,6 +18,7 @@ import { NavigationContainer, DarkTheme, DrawerActions } from '@react-navigation
 import COLORS from './constants/colors'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import * as Font from 'expo-font';
+import MyTheme from './constants/theme';
 
 // Screens 
 import DrawerContent from './screens/DrawerScreen';
@@ -24,20 +26,13 @@ import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ExpenseScreen from './screens/ExpenseScreen';
 import HelpScreen from './screens/HelpScreen';
-import ColleaguesScreen from './screens/ColleaguesScreen';
 import RidesScreen from './screens/RidesScreen';
 import EmptyScreen from './screens/EmptyScreen';
 
-import StackNavigator from './navigation/SitesTabNavigation';
+import ColleaguesTabsNavigator from './navigation/ColleaguesTabNavigation';
+import SitesNavigator from './navigation/SitesTabNavigation';
 
-// THEME SETTINGS
-const MyTheme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-    background:COLORS.background 
-  }
-};
+
 
 // load fonts first
 const fetchFonts = () => {
@@ -154,7 +149,7 @@ export default function App( {navigation}) {
 
          <Drawer.Screen 
           name="Sites" 
-          component={StackNavigator} 
+          component={SitesNavigator} 
           options={{
             title:'Sites',
             drawerIcon: ({focused, size}) => (
@@ -170,7 +165,7 @@ export default function App( {navigation}) {
 
         <Drawer.Screen 
           name="Colleagues" 
-          component={ColleaguesScreen} 
+          component={ColleaguesTabsNavigator} 
           options={{
           title:'Colleagues',
           drawerIcon: ({focused, size}) => (
@@ -180,6 +175,7 @@ export default function App( {navigation}) {
               color={focused ? COLORS.primary: 'grey'}
               />
            ),
+           headerShown:false
           }} 
         />
 

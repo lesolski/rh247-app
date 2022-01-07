@@ -1,29 +1,25 @@
+// ./navigation/SitesTabNavigation.js
+
 import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 
 // Styling imports
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../constants/colors';
+import MyTheme from '../constants/theme';
+
+import { createStackNavigator } from '@react-navigation/stack';
+import { DrawerActions } from '@react-navigation/native';
 
 // Screen imports
 import ListOfSitesScreen from '../screens/sites/ListOfSitesScreen';
 import AddSiteScreen from '../screens/sites/AddSiteScreen';
 
-import { createStackNavigator } from '@react-navigation/stack';
-import { DrawerActions, DarkTheme } from '@react-navigation/native';
 
-// THEME SETTINGS
-const MyTheme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-    background:COLORS.background 
-  }
-};
 
 const Stack = createStackNavigator();
 
-const StackNavigator = ({ navigation }) => {
+const SitesStackNavigator = ({ navigation }) => {
   return (
     <Stack.Navigator 
       theme={MyTheme}
@@ -72,4 +68,4 @@ const StackNavigator = ({ navigation }) => {
   );
 }
 
-export default StackNavigator;
+export default SitesStackNavigator;
