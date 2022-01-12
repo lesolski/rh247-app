@@ -5,10 +5,15 @@ import {
   StyleSheet, 
   TextInput, 
   TouchableOpacity, 
+  Pressable,
   TouchableWithoutFeedback, 
   Keyboard, 
-  ScrollView  
+  ScrollView,
+  Image
 } from 'react-native';
+
+// Expo 
+import * as ImagePicker from 'expo-image-picker';
 
 // Styling
 import COLORS from '../constants/colors';
@@ -22,10 +27,24 @@ import CategoryCard from '../components/CategoryCard';
 const ExpenseScreen = props => {
 
   const [isSelected, setIsSelected] = useState(false);
+  const [image, setImage] = useState(null);
+  
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      quality: 1,
+    });
+    console.log(result.uri);
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex:1, justifyContent:'center', backgroundColor:'#'}}>
-      <ScrollView contentContainerStyle={{alignItems:'center'}} bounces={false}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex:1, justifyContent:'center'}}>
+      <ScrollView style={{flex:1, width:'100%' }} contentContainerStyle={{alignItems:'center'}} bounces={true} showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
         <View style={styles.categoryTitle}>
             <Text style={styles.categoryTitleText}>Choose Date</Text>
@@ -112,16 +131,21 @@ const ExpenseScreen = props => {
             <Text style={styles.categoryTitleText}>Upload Image</Text>
         </View>
         {/* UPLOAD PICTURE CARD */}
-        <View style={styles.cameraUploadBox}>
-            <TouchableOpacity style={{alignItems:'center'}}>
+         {!image && <View style={styles.cameraUploadBox}>
+          <Pressable style={{alignItems:'center'}} onPress={pickImage}>
               <Ionicons 
                 name="camera-outline"
                 size={60}
                 color={COLORS.primary}
               />
               <Text style={{color: COLORS.text, fontFamily:'roboto-mono'}}>Click on camera to add a photo</Text>
-            </TouchableOpacity>
+            </Pressable>
+        </View>}
+        {image &&
+        <View style={{...styles.cameraUploadBox, ...{overflow:'hidden'}}}>
+            <Image source={{uri:image}} style={{flex:1, width:300, height:300}} resizeMode='contain'/>
         </View>
+        }
 
         {/* SUBMIT BUTTON */}
         <TouchableOpacity style={styles.submitButton}>
@@ -193,22 +217,27 @@ const styles = StyleSheet.create({
   cameraUploadBox:{
     width:'100%',
     height:'30%',
-    borderRadius:10,
-    backgroundColor: COLORS.foreground,
     alignItems:'center',
     justifyContent:'center',
+    borderRadius:10,
+    backgroundColor: COLORS.foreground,
     shadowOpacity:0.3,
     shadowColor:'black',
     shadowOffset: {width:4, height:4},
     shadowRadius: 6
   },
 
+  imageBox: {
+    alignItems:'center',
+    justifyContent:'center',
+  },
+ 
   cameraIcon: {
     fontSize:75
   },
 
   submitButton:{
-    marginTop:28,
+    marginVertical:28,
     height:50,
     width:'100%',
     alignItems:'center',

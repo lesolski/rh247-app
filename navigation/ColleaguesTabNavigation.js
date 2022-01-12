@@ -8,13 +8,12 @@ import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../constants/colors';
 import MyTheme from '../constants/theme';
 
+// Navigation imports
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DrawerActions } from '@react-navigation/native';
 
 // Screen imports
 import ColleaguesScreen from './../screens/colleagues/ColleaguesScreen';
-
-
 
 const Tabs = createBottomTabNavigator();
 
@@ -57,7 +56,7 @@ const ColleaguesTabNavigator= ({ navigation }) => {
                 color={COLORS.primary}
               />
             </Pressable>
-            ),
+          ),
         }}
       />
       <Tabs.Screen 
@@ -73,8 +72,8 @@ const ColleaguesTabNavigator= ({ navigation }) => {
                 color={COLORS.primary}
               />
             </Pressable>
-            ),
-       }}
+          ),
+        }}
         />
     </Tabs.Navigator>
   );
