@@ -30,7 +30,7 @@ import RidesScreen from './screens/RidesScreen';
 import EmptyScreen from './screens/EmptyScreen';
 
 import ColleaguesTabsNavigator from './navigation/ColleaguesTabNavigation';
-import SitesNavigator from './navigation/SitesTabNavigation';
+import SitesStackNavigator from './navigation/SitesStackNavigation';
 
 
 
@@ -149,7 +149,7 @@ export default function App( {navigation}) {
 
          <Drawer.Screen 
           name="Sites" 
-          component={SitesNavigator} 
+          component={SitesStackNavigator} 
           options={{
             title:'Sites',
             drawerIcon: ({focused, size}) => (

@@ -1,12 +1,23 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+// ./screens/RidesScreen.js
 
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, FlatList, Alert } from 'react-native';
 
+// Expo imports
+import * as Location from 'expo-location';
+
+// Components imports
 import RideInfoCard from '../components/RideInfoCard';
+import StaticMap from '../components/StaticMap';
 
+// Styling imports
 import COLORS from '../constants/colors';
 
-const renderItem = ( {item}, props ) => {
+import DATA from '../data/rides';
+import KEYS from '../secrets';
+
+// helper function to render custom components in flatlist
+const _renderItem = ( {item}, props ) => {
   return <RideInfoCard 
           start={item.start} 
           end={item.end}
@@ -14,55 +25,61 @@ const renderItem = ( {item}, props ) => {
           />
 };
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    start: "Belgrade",
-    end: "Vienna"
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    start: "Amsterdam",
-    end: "Vienna",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    start: "Sofia",
-    end: "Istanbul"
-  },
-  {
-    id: "28694a0f-3da1-471f-bd96-145571e29d72",
-    start: "Antwerpen",
-    end: "Amsterdam"
-  },
-  {
-    id: "28697a0f-3da1-471f-bd96-145571e29d72",
-    start: "Antwerpen",
-    end: "Amsterdam"
-  },
-
-];
 const RidesScreen = props => {
+  const [ isFetching, setIsFetching ] = useState(false);
+  const [ pickedLocation, setPickedLocation ] = useState();
+  const [ status, requestPermission ] = Location.useForegroundPermissions();
+
+  const getLocationHandler = async () => {
+
+    if (status.status !== 'granted') {
+      requestPermission();
+      return;
+    }
+    try {
+      setIsFetching(true);
+      const userLocation = await Location.getCurrentPositionAsync({timeout: 5000});
+      setPickedLocation({
+        lng: userLocation.coords.longitude,
+        lat: userLocation.coords.latitude
+      });
+    } 
+    catch(err) {
+      console.log(err);
+      Alert.alert('Could not get the location', 'Try again please', [{text:'Okay'}])
+    };
+    setIsFetching(false);
+  };
+
   return (
     <View style={styles.mainContainer}>
 
-      <View style={styles.startRideBox}>
-
+      <StaticMap style={styles.mapBox} location={pickedLocation}>
+        {isFetching ? 
+         <ActivityIndicator /> : <Text>Click button to start a ride</Text> 
+        }
+      </StaticMap>
+      <View style={styles.buttonsBox}>
+        <TouchableOpacity style={styles.startButton} onPress={getLocationHandler}>
+          <Text style={styles.startButtonText}> START </Text>
+        </TouchableOpacity>
+        <TouchableOpacity  style={styles.stopButton} onPress={getLocationHandler}> 
+          <Text style={styles.stopButtonText}> STOP </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.pastRidesBox}>
-        <View style={{alignSelf:'flex-start' }}>
-          <Text>Previous rides</Text>
+        <View style={{alignSelf:'flex-start', marginLeft:20, marginBottom:4}}>
+          <Text style={{fontFamily:'roboto-mono', fontSize:18, color:COLORS.text}}>Previous rides</Text>
         </View>
         <FlatList
         data={DATA}
-        renderItem={renderItem}
+        renderItem={_renderItem}
         keyExtractor={(item, index) => item.id}
         style={styles.flatListStyle}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         />
       </View>
-
     </View>
   )
 };
@@ -73,10 +90,56 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
 
-  startRideBox: {
+  mapBox: {
     flex:1,
-    width:'100%',
-    backgroundColor:COLORS.primary
+    width:'90%',
+    margin:20,
+    backgroundColor:COLORS.primary,
+    borderRadius:15
+  },
+
+  buttonsBox: {
+    width:'90%',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginBottom:15
+  },
+
+  startButton: {
+    flex:1,
+    marginRight:10,  
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:COLORS.foreground,
+    borderColor:COLORS.primary,
+    borderRadius:15,
+    borderWidth:2,
+    padding:10
+  },
+
+  startButtonText: {
+    fontFamily:'roboto-mono',
+    fontSize:20,
+    color:COLORS.primary
+  },
+
+  stopButton: {
+    flex:1,
+    marginLeft:10,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:COLORS.foreground,
+    borderColor:'red',
+    borderRadius:15,
+    borderWidth:2,
+    padding:10
+  },
+
+  stopButtonText: {
+    fontFamily:'roboto-mono',
+    fontSize:20,
+    color: 'red'
   },
   
   pastRidesBox: {
@@ -84,11 +147,10 @@ const styles = StyleSheet.create({
     width:'100%',
     backgroundColor: COLORS.background,
     alignItems: 'center'
-
   },
+
   flatListStyle:{
     width:'95%',
-
   },
 });
 

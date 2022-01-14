@@ -41,7 +41,7 @@ const SitesStackNavigator = ({ navigation }) => {
               onPress={ () => navigation.navigate('Add site')}>
               <Ionicons
                 name= {'add'}
-                size={40}
+                size={28}
                 color={COLORS.primary}
               />
             </Pressable>
@@ -51,7 +51,7 @@ const SitesStackNavigator = ({ navigation }) => {
               onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer())}>
               <Ionicons
                 name= 'menu-outline'
-                size={32}
+                size={28}
                 color={COLORS.primary}
               />
             </Pressable>

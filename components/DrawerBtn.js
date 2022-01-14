@@ -31,7 +31,6 @@ const DrawerBtn = props => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor:'#FFF'
     },
     text:{
         color:"161924",
