@@ -8,7 +8,7 @@ import { Pressable, TouchableOpacity } from 'react-native';
 import { createStore, combineReducers } from 'redux';
 
 // Expo imports
-import AppLoading  from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 
 // React Navigation
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -43,7 +43,8 @@ const fetchFonts = () => {
 
 const Drawer = createDrawerNavigator();
 
-export default function App( {navigation}) {
+export default function App( { navigation } ) {
+
   // Loader state
   const [fontLoaded, setFontLoaded] = useState(false);
 

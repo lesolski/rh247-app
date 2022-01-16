@@ -1,25 +1,25 @@
 // ./screens/sites/ListOfSitesScreen.js
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 
+import SiteCard from '../../components/SiteCard';
 // Styling
 import COLORS from '../../constants/colors';
+
+import SitesData from '../../data/sites';
+const _renderItem = ({ item }) => <SiteCard name={item.name} cords={{lat:item.lat, lng:item.lng }} /> 
 
 const ListOfSitesScreen = props => {
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.pinnedMsg}>
-        <View style={{ 
-                    marginBottom:8, 
-                    fle:1,
-                    alignItems:'center',
-                    justifyContent:'center'}}>
-        <Text style={styles.labelText}>List of Sites</Text>
-      </View>
-      </View>
+      <FlatList 
+        renderItem={_renderItem}
+        keyExtractor={(item, index) => item.idx}
+
+      />
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
