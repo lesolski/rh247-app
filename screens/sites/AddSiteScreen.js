@@ -1,47 +1,109 @@
 // ./screens/sites/AddSiteScreen.js
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, StyleSheet, TextInput} from 'react-native';
 
 // Styling
 import COLORS from '../../constants/colors';
+import { Ionicons } from '@expo/vector-icons';
 
-const AddSiteScreen = props => {
+const AddSiteScreen = () => {
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.pinnedMsg}>
+    <ScrollView style={styles.mainContainer} contentContainerStyle={{alignItems:'center'}}>
+
+      {/* Client Name Input*/}
+      <View style={[styles.inputFieldBox, {marginTop:30}]}>
+        <Text style={styles.labelText}>Client Name</Text>
+        <TextInput style={styles.inputText} />
       </View>
-      <View style={{marginTop:20, 
-                    marginBottom:8, 
-                    width:'80%'}}>
-        <Text style={styles.labelText}>Month overview</Text>
+
+      {/* Site Reference Input*/}
+      <View style={styles.inputFieldBox}>
+        <Text style={styles.labelText}>Site Reference</Text>
+        <TextInput style={styles.inputText} />
       </View>
-    </View>
+
+      {/* Location Chooser */}
+      <View style={{width:'90%', height:240, marginBottom: 12}}>
+        <Text style={styles.labelText}>Location</Text>
+        <View style={styles.field}>
+          <TouchableOpacity>
+          <Ionicons 
+            name="map-outline"
+            size={40}
+            color={COLORS.primary}
+          />
+          </TouchableOpacity>
+          <Text style={styles.boxText}>Choose on map - click</Text>
+        </View>
+      </View>
+
+      <View style={{width:'90%', height:240}}>
+        <Text style={styles.labelText}>Picture</Text>
+        <View style={styles.field}>
+          <TouchableOpacity>
+          <Ionicons 
+            name="camera-outline"
+            size={40}
+            color={COLORS.primary}
+          />
+          </TouchableOpacity>
+          <Text style={styles.boxText}>Click on camera</Text>
+        </View>
+      </View>
+
+    </ScrollView>
   )
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    alignItems:'center',
-    flex:1
+    flex:1,
+    flexDirection:'column'
   },
-  pinnedMsg:{
+
+  inputFieldBox: {
+    marginBottom:12,
     width:'90%',
-    height:'25%',
-    marginTop:20,
-    borderRadius:15,
-    borderColor:COLORS.primary,
-    borderWidth:1,
   },
 
   labelText: {
-    marginTop:20,
-    marginBottom:8,
     width:'80%',
     fontFamily:'roboto-mono', 
-    fontSize:20, 
-    color:COLORS.text
-  }
+    fontSize:18, 
+    color:COLORS.text,
+    alignSelf: 'flex-start',
+    paddingLeft:10,
+    marginBottom:4
+  },
+
+  inputText: {
+    flex:1, 
+    fontSize:18, 
+    fontFamily: 'roboto-mono',
+    color:COLORS.primary, 
+    padding:15, 
+    borderColor: 
+    COLORS.primary, 
+    borderWidth:1,
+    borderRadius:15
+  },
+
+  field: {
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: COLORS.primary,
+    borderWidth:1,
+    borderRadius:15 
+  },
+
+  boxText: {
+    fontFamily: 'roboto-mono',
+    fontSize: 14,
+    color: COLORS.primary
+  },
+
 });
 
 export default AddSiteScreen;

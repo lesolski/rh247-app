@@ -12,7 +12,7 @@ import AppLoading from 'expo-app-loading';
 
 // React Navigation
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, DarkTheme, DrawerActions } from '@react-navigation/native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 
 // styling imports
 import COLORS from './constants/colors'
