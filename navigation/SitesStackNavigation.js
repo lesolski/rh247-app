@@ -14,8 +14,7 @@ import { DrawerActions } from '@react-navigation/native';
 // Screen imports
 import ListOfSitesScreen from '../screens/sites/ListOfSitesScreen';
 import AddSiteScreen from '../screens/sites/AddSiteScreen';
-
-
+import MapViewScreen from '../screens/sites/MapViewScreen';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +31,7 @@ const SitesStackNavigator = ({ navigation }) => {
           fontFamily: 'roboto-mono',
         },
       }}>
+
       <Stack.Screen 
         name="List of sites" 
         component={ListOfSitesScreen} 
@@ -58,12 +58,20 @@ const SitesStackNavigator = ({ navigation }) => {
             ),
         }}
       />
+
       <Stack.Screen 
         name="Add site" 
         component={AddSiteScreen} 
         options={{
        }}
         />
+
+      <Stack.Screen
+        name="Map"
+        component={MapViewScreen}
+        options={{
+        }}
+      />
     </Stack.Navigator>
   );
 }

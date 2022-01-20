@@ -7,7 +7,7 @@ import { ScrollView, View, Text, TouchableOpacity, StyleSheet, TextInput} from '
 import COLORS from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-const AddSiteScreen = () => {
+const AddSiteScreen = (props) => {
   return (
     <ScrollView style={styles.mainContainer} contentContainerStyle={{alignItems:'center'}}>
 
@@ -27,7 +27,7 @@ const AddSiteScreen = () => {
       <View style={{width:'90%', height:240, marginBottom: 12}}>
         <Text style={styles.labelText}>Location</Text>
         <View style={styles.field}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Map')}>
           <Ionicons 
             name="map-outline"
             size={40}
