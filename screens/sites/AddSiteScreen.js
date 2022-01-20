@@ -7,7 +7,13 @@ import { ScrollView, View, Text, TouchableOpacity, StyleSheet, TextInput} from '
 import COLORS from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
+// Redux
+import { useDispatch } from 'react-redux';
+
+
 const AddSiteScreen = (props) => {
+  const dispatch = useDispatch(); 
+
   return (
     <ScrollView style={styles.mainContainer} contentContainerStyle={{alignItems:'center'}}>
 
@@ -41,7 +47,7 @@ const AddSiteScreen = (props) => {
       <View style={{width:'90%', height:240}}>
         <Text style={styles.labelText}>Picture</Text>
         <View style={styles.field}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => dispatch({type:'addNewSite'})}>
           <Ionicons 
             name="camera-outline"
             size={40}

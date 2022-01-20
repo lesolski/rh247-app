@@ -2,10 +2,11 @@
 
 // React + RN
 import React, { useState } from 'react';
-import { Pressable, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 // Redux
-import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 // Expo imports
 import AppLoading from 'expo-app-loading';
@@ -17,8 +18,8 @@ import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 // styling imports
 import COLORS from './constants/colors'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
-import * as Font from 'expo-font';
 import MyTheme from './constants/theme';
+import * as Font from 'expo-font';
 
 // Screens 
 import DrawerContent from './screens/DrawerScreen';
@@ -33,7 +34,6 @@ import ColleaguesTabsNavigator from './navigation/ColleaguesTabNavigation';
 import SitesStackNavigator from './navigation/SitesStackNavigation';
 
 
-
 // load fonts first
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -43,7 +43,7 @@ const fetchFonts = () => {
 
 const Drawer = createDrawerNavigator();
 
-export default function App( { navigation } ) {
+export default function App() {
 
   // Loader state
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -57,7 +57,10 @@ export default function App( { navigation } ) {
     />
   };
 
+  console.log(store);
+
   return (
+    <Provider store={store}>
     <NavigationContainer theme={MyTheme}>
       <Drawer.Navigator 
         initialRouteName="Home" 
@@ -174,7 +177,7 @@ export default function App( { navigation } ) {
               name= {focused ? 'people' : 'people-outline'}
               size={size}
               color={focused ? COLORS.primary: 'grey'}
-              />
+            />
            ),
            headerShown:false
           }} 
@@ -212,5 +215,6 @@ export default function App( { navigation } ) {
 
       </Drawer.Navigator>
     </NavigationContainer>
+  </Provider>
   );
 };

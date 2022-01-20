@@ -1,23 +1,47 @@
 // ./screens/sites/ListOfSitesScreen.js
 
 import React from 'react';
-import { View, FlatList, Text, StyleSheet } from 'react-native';
+import { View, FlatList, TextInput, StyleSheet } from 'react-native';
 
+// Redux imports
+import { useSelector } from 'react-redux';
+
+// Components imports
 import SiteCard from '../../components/SiteCard';
-// Styling
+
+// Styling imports
 import COLORS from '../../constants/colors';
+import { Ionicons } from '@expo/vector-icons';
 
-import SitesData from '../../data/sites';
-const _renderItem = ({ item }) => <SiteCard name={item.name} cords={{lat:item.lat, lng:item.lng }} /> 
+// pass item object and unpack it in SiteCard component via props and style it there
+const _renderItem = ({ item }) => <SiteCard item={item} /> 
 
-const ListOfSitesScreen = props => {
+const ListOfSitesScreen = () => {
+
+  const listOfSites = useSelector(state => state.sites.sites);
+
   return (
     <View style={styles.mainContainer}>
-      <FlatList 
-        renderItem={_renderItem}
-        keyExtractor={(item, index) => item.idx}
+      
+      {/* Search Bar*/}
+      <View style={styles.searchBar}>
+        <Ionicons 
+          name='search'
+          color={COLORS.primary}
+          size={30}
+          style={{paddingBottom:4}}
+        />
+        <TextInput style={styles.searchText} placeholder="Search for a site" placeholderTextColor={COLORS.text}/>
+      </View>
 
+      {/* List of Sites*/}
+      <FlatList 
+        data={listOfSites}
+        renderItem={_renderItem}
+        keyExtractor={(item) => item.id}
+        style={styles.list}
       />
+
     </View>
   );
 };
@@ -27,20 +51,30 @@ const styles = StyleSheet.create({
     alignItems:'center',
     flex:1
   },
-  pinnedMsg:{
+  
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    height:'7%',
     width:'90%',
-    height:'25%',
-    marginTop:20,
-    borderRadius:15,
-    borderColor:COLORS.primary,
-    borderWidth:1,
+    borderBottomWidth:1,
+    borderBottomColor: COLORS.primary,
+    borderBottomWidth: 3,
+    marginBottom:9
   },
 
-  labelText: {
-    fontFamily:'roboto-mono', 
-    fontSize:20, 
-    color:COLORS.text
+  searchText: {
+    fontSize:22,
+    marginLeft:10,
+    marginBottom:4,
+    color: COLORS.primary
+  },
+
+  list: {
+    marginTop:8,
+    width:'90%'
   }
 });
 
 export default ListOfSitesScreen;
+
