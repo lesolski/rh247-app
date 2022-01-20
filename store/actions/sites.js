@@ -1,6 +1,7 @@
-const addNewSite = {
-  type: 'addNewSite',
-};
+// ./store/actions/sites.js
 
-export default addNewSite;
+export default addNewSite = {
+  type: 'addNewSite',
+  payload: ''
+};
 
