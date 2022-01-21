@@ -42,42 +42,40 @@ const AddSiteScreen = (props) => {
 
       {/* work on logic on what to show and what not based if location picked or not*/}
       <View style={{width:'90%', height:240, marginBottom: 12}}>
-        <View style={{flexDirecion:'row', heigth:300, width:200}}>
-        <Text style={styles.labelText}>Location</Text> 
-          {pinCoords && <Button title="retake" stlye={{flex:1}}onPress={() => props.navigation.navigate('Map')} />}
-        </View>
+      <Text style={styles.labelText}>Location</Text> 
 
-      {pinCoords ?
-        (<MapView 
+      {pinCoords ? (
+        <MapView 
           initialRegion={{
             latitude: pinCoords.latitude,
             longitude: pinCoords.longitude,
-            latitudeDelta: 0.0922,
+            latitudeDelta: 0.0122,
             longitudeDelta: 0.0421,
           }}
-          style={styles.field}>
-            <Marker 
-              coordinate={pinCoords}
-              title={'Site'}
-              descriptions={'euNetworks'}
-            /> 
-          </MapView>
+          onPress={() => props.navigation.navigate('Map')}
+          style={styles.field}
+        >
+          <Marker 
+            coordinate={pinCoords}
+            title={'Site'}
+            descriptions={'euNetworks'}
+          /> 
+        </MapView>
         ) : (
-         <View style={styles.field}>
-              <TouchableOpacity onPress={() => props.navigation.navigate('Map')}>
-                <Ionicons 
-                name="map-outline"
-                size={40}
-                color={COLORS.primary}
-                />
-              </TouchableOpacity>
-            <Text style={styles.boxText}>Choose on map - click</Text>
-            </View>)}
+        <View style={styles.field}>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Map')}>
+            <Ionicons 
+              name="map-outline"
+              size={40}
+              color={COLORS.primary}
+              />
+            </TouchableOpacity>
+          <Text style={styles.boxText}>Choose on map - click</Text>
+        </View>)}
+
       </View>
 
-
-      {/* Location Chooser */}
-      
+      {/* CAMERA PICKER */}
       <View style={{width:'90%', height:240}}>
         <Text style={styles.labelText}>Picture</Text>
         <View style={styles.field}>
