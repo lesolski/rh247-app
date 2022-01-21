@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, FlatList, 
 
 // Expo imports
 import * as Location from 'expo-location';
+import MapView, { Marker }from 'react-native-maps';
 
 // Components imports
 import RideInfoCard from '../components/RideInfoCard';
@@ -26,6 +27,7 @@ const _renderItem = ( {item}, props ) => {
 };
 
 const RidesScreen = props => {
+
   const [ isFetching, setIsFetching ] = useState(false);
   const [ pickedLocation, setPickedLocation ] = useState();
   const [ status, requestPermission ] = Location.useForegroundPermissions();
@@ -40,8 +42,8 @@ const RidesScreen = props => {
       setIsFetching(true);
       const userLocation = await Location.getCurrentPositionAsync({timeout: 5000});
       setPickedLocation({
-        lng: userLocation.coords.longitude,
-        lat: userLocation.coords.latitude
+        latitude: userLocation.coords.latitude,
+        longitude: userLocation.coords.longitude
       });
     } 
     catch(err) {
@@ -54,11 +56,11 @@ const RidesScreen = props => {
   return (
     <View style={styles.mainContainer}>
 
-      <StaticMap style={styles.mapBox} location={pickedLocation}>
-        {isFetching ? 
-         <ActivityIndicator /> : <Text>Click button to start a ride</Text> 
-        }
-      </StaticMap>
+      {isFetching ? <View style={styles.mapBox}><ActivityIndicator /></View> : 
+      <MapView style={styles.mapBox} region={pickedLocation}>
+        <Marker title='your location' coordinate={pickedLocation}/> 
+      </MapView>
+      }
       <View style={styles.buttonsBox}>
         <TouchableOpacity style={styles.startButton} onPress={getLocationHandler}>
           <Text style={styles.startButtonText}> START </Text>
@@ -95,7 +97,9 @@ const styles = StyleSheet.create({
     width:'90%',
     margin:20,
     backgroundColor:COLORS.primary,
-    borderRadius:15
+    borderRadius:15,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   buttonsBox: {

@@ -46,11 +46,11 @@ const AddSiteScreen = (props) => {
 
       {pinCoords ? (
         <MapView 
-          initialRegion={{
+          region={{
             latitude: pinCoords.latitude,
             longitude: pinCoords.longitude,
-            latitudeDelta: 0.0122,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 0.0091,
+            longitudeDelta: 0.0091,
           }}
           onPress={() => props.navigation.navigate('Map')}
           style={styles.field}
