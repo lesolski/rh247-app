@@ -1,9 +1,14 @@
-// ./store/actions/sites.js
+// ./store/sites/actions.js
 
-const ADD_SITE = 'ADD_SITE';
+import { ADD_SITE, SAVE_MARKER } from './types';
 
-export default {
+export const addSiteAction = {
   type: ADD_SITE,
-  payload: {} 
+  payload: {}
 };
+
+export const saveMarkerAction = {
+  type: SAVE_MARKER,
+  payload: {}
+}
 

@@ -7,19 +7,22 @@ import {
   Text, 
   TouchableOpacity, 
   StyleSheet, 
-  TextInput} 
+  TextInput,
+  Button} 
 from 'react-native';
+
+import MapView, { Marker } from 'react-native-maps';
 
 // Styling
 import COLORS from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 
 // Redux
-import { useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 
 const AddSiteScreen = (props) => {
-  const dispatch = useDispatch(); 
+
+  const pinCoords = useSelector(state => state.sites.coords);
 
   return (
     <ScrollView style={styles.mainContainer} contentContainerStyle={{alignItems:'center'}}>
@@ -36,25 +39,49 @@ const AddSiteScreen = (props) => {
         <TextInput style={styles.inputText} />
       </View>
 
-      {/* Location Chooser */}
+
+      {/* work on logic on what to show and what not based if location picked or not*/}
       <View style={{width:'90%', height:240, marginBottom: 12}}>
-        <Text style={styles.labelText}>Location</Text>
-        <View style={styles.field}>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Map')}>
-          <Ionicons 
-            name="map-outline"
-            size={40}
-            color={COLORS.primary}
-          />
-          </TouchableOpacity>
-          <Text style={styles.boxText}>Choose on map - click</Text>
+        <View style={{flexDirecion:'row', heigth:300, width:200}}>
+        <Text style={styles.labelText}>Location</Text> 
+          {pinCoords && <Button title="retake" stlye={{flex:1}}onPress={() => props.navigation.navigate('Map')} />}
         </View>
+
+      {pinCoords ?
+        (<MapView 
+          initialRegion={{
+            latitude: pinCoords.latitude,
+            longitude: pinCoords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          style={styles.field}>
+            <Marker 
+              coordinate={pinCoords}
+              title={'Site'}
+              descriptions={'euNetworks'}
+            /> 
+          </MapView>
+        ) : (
+         <View style={styles.field}>
+              <TouchableOpacity onPress={() => props.navigation.navigate('Map')}>
+                <Ionicons 
+                name="map-outline"
+                size={40}
+                color={COLORS.primary}
+                />
+              </TouchableOpacity>
+            <Text style={styles.boxText}>Choose on map - click</Text>
+            </View>)}
       </View>
 
+
+      {/* Location Chooser */}
+      
       <View style={{width:'90%', height:240}}>
         <Text style={styles.labelText}>Picture</Text>
         <View style={styles.field}>
-          <TouchableOpacity onPress={() => dispatch({type:'addNewSite'})}>
+          <TouchableOpacity onPress={() => dispatch({})}>
           <Ionicons 
             name="camera-outline"
             size={40}

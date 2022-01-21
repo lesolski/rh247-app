@@ -6,7 +6,7 @@ import SitesReducer from './sites/reducer';
 const rootReducer = combineReducers({sites: SitesReducer});
   
 /* eslint-disable no-underscore-dangle */
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(rootReducer);
 /* eslint-disable no-underscore-dangle */
 
 export default store;

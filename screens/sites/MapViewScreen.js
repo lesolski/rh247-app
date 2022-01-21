@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import MapView, {Marker}  from 'react-native-maps';
-import * as Camera from 'expo-camera';
+
+
+import { useDispatch, useSelector } from 'react-redux';
+import { SAVE_MARKER } from '../../store/sites/types';
 
 
 const MapViewScreen = () => {
-  
-  const [marker, setMarker] = useState();
+
+  const dispatch = useDispatch();
+
+  // initialMarker if user tries to retake location from AddSiteScreen.js 
+  const initialMarker = useSelector(state => state.sites.coords) 
+  const [marker, setMarker] = useState(initialMarker);
 
   const pointerHandler = (event) => {
+    dispatch({ type:SAVE_MARKER , payload: event.nativeEvent.coordinate});
     setMarker(event.nativeEvent.coordinate)
   }; 
 

@@ -1,23 +1,23 @@
 // ./store/sites/reducer.js
 
 import Sites from '../../data/sites';
-import addSite from './actions';
+import { SAVE_MARKER } from './types';
 
 const initialState = {
   sites: Sites, 
-  favoriteSites: []
+  favoriteSites: [],
+  coords: undefined 
 };
 
 const SitesReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case 'ADD_SITE': {
+    case SAVE_MARKER : {
       return {
-
-      }  
-
+        ...state,
+        coords: {latitude:action.payload.latitude, longitude:action.payload.longitude}
+      }
     }
-
     default:
       return state;
   }

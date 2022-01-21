@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
   },
 
   searchText: {
+    flex:1,
     fontSize:22,
     marginLeft:10,
     marginBottom:4,
