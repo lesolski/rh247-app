@@ -1,9 +1,18 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 
-import MapView from 'react-native-maps';
+import MapView, {Marker}  from 'react-native-maps';
+import * as Camera from 'expo-camera';
+
 
 const MapViewScreen = () => {
+  
+  const [marker, setMarker] = useState();
+
+  const pointerHandler = (event) => {
+    setMarker(event.nativeEvent.coordinate)
+  }; 
+
   return (
     <MapView 
       initialRegion={{
@@ -13,8 +22,18 @@ const MapViewScreen = () => {
         longitudeDelta: 0.0421,
       }}
       style={styles.mapBox}
-    /> 
-  );
+      showsUserLocation={true} 
+      onPress={(e) => pointerHandler(e)}
+    > 
+
+    { marker &&
+    <Marker 
+      coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+      title={'Site'}
+      descriptions={'euNetworks'}
+    /> }
+
+   </MapView>   );
 };
 
 const styles = StyleSheet.create({

@@ -1,7 +1,14 @@
 // ./screens/sites/AddSiteScreen.js
 
 import React from 'react';
-import { ScrollView, View, Text, TouchableOpacity, StyleSheet, TextInput} from 'react-native';
+import { 
+  ScrollView, 
+  View, 
+  Text, 
+  TouchableOpacity, 
+  StyleSheet, 
+  TextInput} 
+from 'react-native';
 
 // Styling
 import COLORS from '../../constants/colors';

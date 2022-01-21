@@ -1,6 +1,7 @@
-// ./store/reducers/sites.js
+// ./store/sites/reducer.js
 
 import Sites from '../../data/sites';
+import addSite from './actions';
 
 const initialState = {
   sites: Sites, 
@@ -8,7 +9,18 @@ const initialState = {
 };
 
 const SitesReducer = (state = initialState, action) => {
-   return state;
+  switch (action.type) {
+
+    case 'ADD_SITE': {
+      return {
+
+      }  
+
+    }
+
+    default:
+      return state;
+  }
 };
 
 export default SitesReducer;

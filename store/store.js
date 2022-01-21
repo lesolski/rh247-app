@@ -1,7 +1,7 @@
 // ./store/store.js
 
 import { createStore, combineReducers } from 'redux';
-import SitesReducer from './reducers/sites';
+import SitesReducer from './sites/reducer';
 
 const rootReducer = combineReducers({sites: SitesReducer});
   
