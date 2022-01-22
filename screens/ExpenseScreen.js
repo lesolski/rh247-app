@@ -1,34 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TextInput, 
-  TouchableOpacity, 
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
   Pressable,
-  TouchableWithoutFeedback, 
-  Keyboard, 
+  TouchableWithoutFeedback,
+  Keyboard,
   ScrollView,
-  Image
-} from 'react-native';
+  Image,
+} from "react-native";
 
-// Expo 
-import * as ImagePicker from 'expo-image-picker';
+// Expo
+import * as ImagePicker from "expo-image-picker";
 
 // Styling
-import COLORS from '../constants/colors';
-import { Ionicons } from '@expo/vector-icons';
+import COLORS from "../constants/colors";
+import { Ionicons } from "@expo/vector-icons";
 
 // Components
-import Card from '../components/Card';
-import SelectCard from '../components/SelectCard';
-import CategoryCard from '../components/CategoryCard';
+import Card from "../components/Card";
+import SelectCard from "../components/SelectCard";
+import CategoryCard from "../components/CategoryCard";
 
-const ExpenseScreen = props => {
-
+const ExpenseScreen = (props) => {
+  // selected
   const [isSelected, setIsSelected] = useState(false);
+  const [selectedId, setSelectedId] = useState([]);
+
+  // image picker
   const [image, setImage] = useState(null);
-  
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -36,244 +39,279 @@ const ExpenseScreen = props => {
       allowsEditing: false,
       quality: 1,
     });
-    console.log(result.uri);
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
 
+  const selectedIdHandler = (id) => {
+    if (!isSelected) {
+      setIsSelected(true);
+    }
+    return <View />;
+  };
+
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex:1, justifyContent:'center'}}>
-      <ScrollView style={{flex:1, width:'100%' }} contentContainerStyle={{alignItems:'center'}} bounces={true} showsVerticalScrollIndicator={false}>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      style={{ flex: 1, justifyContent: "center" }}
+    >
+      <ScrollView
+        style={{ flex: 1, width: "100%" }}
+        contentContainerStyle={{ alignItems: "center" }}
+        bounces={true}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.mainContainer}>
-        <View style={styles.categoryTitle}>
+          <View style={styles.categoryTitle}>
             <Text style={styles.categoryTitleText}>Choose Date</Text>
-        </View>
-        <View style={{flexDirection:'row'}}>
-          <SelectCard
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <SelectCard
               dateNum={1}
-              dayName='Sat'
-              style={styles.date}>
-          </SelectCard>
-          <SelectCard
+              dayName="Sat"
+              onPress={() =>
+                isSelected ? setIsSelected(false) : setIsSelected(true)
+              }
+              style={styles.date}
+            ></SelectCard>
+            <SelectCard
               dateNum={2}
-              dayName='Sat'
-              style={styles.date}>
-           </SelectCard>
-          <SelectCard
+              dayName="Sat"
+              style={styles.date}
+            ></SelectCard>
+            <SelectCard
               dateNum={3}
-              dayName='Sat'
-              style={styles.date}>
-           </SelectCard>
-          <SelectCard
+              dayName="Sat"
+              style={styles.date}
+            ></SelectCard>
+            <SelectCard
               dateNum={4}
-              dayName='Sat'
-              style={styles.date}>
-          </SelectCard>
-          <SelectCard
-            dateNum={5}
-            dayName='Sat'
-            style={styles.date}>
-           </SelectCard>
-        </View>
+              dayName="Sat"
+              style={styles.date}
+            ></SelectCard>
+            <SelectCard
+              dateNum={5}
+              dayName="Sat"
+              style={styles.date}
+            ></SelectCard>
+          </View>
 
-        {/* CATEGORY LABEL */}
-        <View style={styles.categoryTitle}>
+          {/* CATEGORY LABEL */}
+          <View style={styles.categoryTitle}>
             <Text style={styles.categoryTitleText}>Category</Text>
-        </View>
-        {/* CATEGORY CARDS */}
-        <View style={styles.categoryContainer}>
-          {/* LEFT SIDE  */}
-          <View style={{flexDirection:'row'}}>
-            <CategoryCard 
-              style={styles.card} 
-              category={'site'} 
-              icon={'desktop-outline'}>
-            </CategoryCard>
-            <CategoryCard 
-              style={styles.card} 
-              category={"materials"}>
-            </CategoryCard>
-          </View >
-          {/* RIGHT SIDE  */}
-          <View style={{flexDirection:'row'}}>
-            <CategoryCard 
-              style={styles.card} 
-              category={"travel"} 
-              icon={"airplane-outline"}>
-            </CategoryCard>
-            <CategoryCard 
-              style={styles.card} 
-              category={"tools"} 
-              icon={"construct-outline"}>
-            </CategoryCard>
-           </View>
-        </View>
-
-        {/* AMOUNT LABEL */}
-        <View style={styles.categoryTitle}>
-            <Text style={styles.categoryTitleText}>Amount</Text>
-        </View>
-        {/* AMOUNT INPUT */}
-        <View style={{flexDirection:'row'}}>
-            <View style={styles.input}>
-                <TextInput 
-                  style={{width:'100%', height:'100%', fontSize:30, textAlign:'center', color:COLORS.text}} 
-                  placeholder="€" 
-                  placeholderTextColor={COLORS.primary}
-                  keyboardType='numeric'
-                  keyboardAppearance='dark'/>
+          </View>
+          {/* CATEGORY CARDS */}
+          <View style={styles.categoryContainer}>
+            {/* LEFT SIDE  */}
+            <View style={{ flexDirection: "row" }}>
+              <CategoryCard
+                style={styles.card}
+                category={"site"}
+                icon={"desktop-outline"}
+              ></CategoryCard>
+              <CategoryCard
+                style={styles.card}
+                category={"materials"}
+              ></CategoryCard>
             </View>
-        </View>
+            {/* RIGHT SIDE  */}
+            <View style={{ flexDirection: "row" }}>
+              <CategoryCard
+                style={styles.card}
+                category={"travel"}
+                icon={"airplane-outline"}
+              ></CategoryCard>
+              <CategoryCard
+                style={styles.card}
+                category={"tools"}
+                icon={"construct-outline"}
+              ></CategoryCard>
+            </View>
+          </View>
 
-        {/* UPLOAD PICTURE LABEL */}
-        <View style={styles.categoryTitle}>
-            <Text style={styles.categoryTitleText}>Upload Image</Text>
-        </View>
-        {/* UPLOAD PICTURE CARD */}
-         {!image && <View style={styles.cameraUploadBox}>
-          <Pressable style={{alignItems:'center'}} onPress={pickImage}>
-              <Ionicons 
-                name="camera-outline"
-                size={60}
-                color={COLORS.primary}
+          {/* AMOUNT LABEL */}
+          <View style={styles.categoryTitle}>
+            <Text style={styles.categoryTitleText}>Amount</Text>
+          </View>
+          {/* AMOUNT INPUT */}
+          <View style={{ flexDirection: "row" }}>
+            <View style={styles.input}>
+              <TextInput
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  fontSize: 30,
+                  textAlign: "center",
+                  color: COLORS.text,
+                }}
+                placeholder="€"
+                placeholderTextColor={COLORS.primary}
+                keyboardType="numeric"
+                keyboardAppearance="dark"
               />
-              <Text style={{color: COLORS.text, fontFamily:'roboto-mono'}}>Click on camera to add a photo</Text>
-            </Pressable>
-        </View>}
-        {image &&
-        <View style={{...styles.cameraUploadBox, ...{overflow:'hidden'}}}>
-            <Image source={{uri:image}} style={{flex:1, width:300, height:300}} resizeMode='contain'/>
-        </View>
-        }
+            </View>
+          </View>
 
-        {/* SUBMIT BUTTON */}
-        <TouchableOpacity style={styles.submitButton}>
+          {/* UPLOAD PICTURE LABEL */}
+          <View style={styles.categoryTitle}>
+            <Text style={styles.categoryTitleText}>Upload Image</Text>
+          </View>
+
+          {/* UPLOAD PICTURE CARD */}
+          {!image && (
+            <View style={styles.cameraUploadBox}>
+              <Pressable style={{ alignItems: "center" }} onPress={pickImage}>
+                <Ionicons
+                  name="camera-outline"
+                  size={60}
+                  color={COLORS.primary}
+                />
+                <Text style={{ color: COLORS.text, fontFamily: "roboto-mono" }}>
+                  Click on camera to add a photo
+                </Text>
+              </Pressable>
+            </View>
+          )}
+          {image && (
+            <View
+              style={{ ...styles.cameraUploadBox, ...{ overflow: "hidden" } }}
+            >
+              <Image
+                source={{ uri: image }}
+                style={{ flex: 1, width: 300, height: 300 }}
+                resizeMode="contain"
+              />
+            </View>
+          )}
+
+          {/* SUBMIT BUTTON */}
+          <TouchableOpacity style={styles.submitButton}>
             <Text style={styles.buttonText}>Claim</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex:1,
-    width:'90%',
-    alignItems: 'center',
-    marginTop: 15
-  }, 
+    flex: 1,
+    width: "90%",
+    alignItems: "center",
+    marginTop: 15,
+  },
   card: {
     flex: 1,
-    height:50,
-    padding:5,
-    margin:5,
-    alignItems:'center',
-    justifyContent:'center',
+    height: 50,
+    padding: 5,
+    margin: 5,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: COLORS.foreground,
-    borderRadius:10,
+    borderRadius: 10,
   },
 
   input: {
-    width:'100%',
-    height:50,
-    shadowColor:'black',
+    width: "100%",
+    height: 50,
+    shadowColor: "black",
     backgroundColor: COLORS.foreground,
-    shadowOffset: {width:4, height:4},
-    shadowRadius:6,
-    shadowOpacity:0.3,
-    borderRadius:10,
-    alignItems:'center',
-    justifyContent:'center'
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 6,
+    shadowOpacity: 0.3,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   textStyle: {
-    fontSize:20,
-    fontWeight:'400',
+    fontSize: 20,
+    fontWeight: "400",
     color: COLORS.text,
-    fontFamily:'roboto-mono'
+    fontFamily: "roboto-mono",
   },
 
   categoryTitle: {
-    marginTop:13,
-    width:'96%',
-    alignItems:'flex-end',
-    flexDirection:'row',
-    marginBottom:13
+    marginTop: 13,
+    width: "96%",
+    alignItems: "flex-end",
+    flexDirection: "row",
+    marginBottom: 13,
   },
 
   categoryTitleText: {
-    fontSize:20,
-    fontWeight:'300',
-    color:'grey',
-    fontFamily:'roboto-mono'
+    fontSize: 20,
+    fontWeight: "300",
+    color: "grey",
+    fontFamily: "roboto-mono",
   },
   categoryContainer: {
-    flexDirection:'column',
-    alignItems:'center'
+    flexDirection: "column",
+    alignItems: "center",
   },
 
-  cameraUploadBox:{
-    width:'100%',
-    height:'30%',
-    alignItems:'center',
-    justifyContent:'center',
-    borderRadius:10,
+  cameraUploadBox: {
+    width: "100%",
+    height: "30%",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
     backgroundColor: COLORS.foreground,
-    shadowOpacity:0.3,
-    shadowColor:'black',
-    shadowOffset: {width:4, height:4},
-    shadowRadius: 6
+    shadowOpacity: 0.3,
+    shadowColor: "black",
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 6,
   },
 
   imageBox: {
-    alignItems:'center',
-    justifyContent:'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
- 
+
   cameraIcon: {
-    fontSize:75
+    fontSize: 75,
   },
 
-  submitButton:{
-    marginVertical:28,
-    height:50,
-    width:'100%',
-    alignItems:'center',
-    justifyContent:'center',
+  submitButton: {
+    marginVertical: 28,
+    height: 50,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: COLORS.foreground,
-    borderRadius:10,
-    borderColor:COLORS.primary,
-    borderWidth:2
+    borderRadius: 10,
+    borderColor: COLORS.primary,
+    borderWidth: 2,
   },
 
-  buttonText:{
-    fontSize:25,
-    fontWeight:'bold',
+  buttonText: {
+    fontSize: 25,
+    fontWeight: "bold",
     color: COLORS.primary,
-    fontFamily:'roboto-mono'
+    fontFamily: "roboto-mono",
   },
 
-  date:{
-    flex:1,
-    height:70,
-    marginHorizontal:6,
-    justifyContent:'center',
-    alignItems:'center',
-    shadowColor:'black',
-    shadowOpacity: 0.10,
-    shadowOffset: {width:4, height:4},
-    shadowRadius:6,
-    backgroundColor:'white',
-    borderRadius:10
+  date: {
+    flex: 1,
+    height: 70,
+    marginHorizontal: 6,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "black",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 6,
+    backgroundColor: "white",
+    borderRadius: 10,
   },
 
-  dateText:{
-    fontSize:25,
-    fontWeight:'600',
-    marginBottom:3,
-  }
+  dateText: {
+    fontSize: 25,
+    fontWeight: "600",
+    marginBottom: 3,
+  },
 });
 
 export default ExpenseScreen;

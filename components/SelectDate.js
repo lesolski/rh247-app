@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
 const DATA = [
   {
@@ -47,7 +53,7 @@ const App = () => {
 
   const renderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.id === selectedId ? 'white' : 'black';
+    const color = item.id === selectedId ? "white" : "black";
 
     return (
       <Item
@@ -75,25 +81,25 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height:100,
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
   },
   item: {
     padding: 20,
     marginHorizontal: 6,
     marginVertical: 8,
-    borderRadius:10,
-    justifyContent:'center',
-    alignItems:'center',
-    shadowColor:'black',
-    shadowOpacity:0.3,
-    shadowOffset: {width:4, height:4}
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "black",
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 4, height: 4 },
   },
   title: {
     fontSize: 30,
-  }
+  },
 });
 
 export default App;
