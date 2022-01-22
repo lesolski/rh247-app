@@ -4,6 +4,7 @@ import { DarkTheme } from "@react-navigation/native";
 import COLORS from './colors';
 
 // THEME SETTINGS
+//
 const MyTheme = {
   ...DarkTheme,
   colors: {

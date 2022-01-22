@@ -31,7 +31,7 @@ const RidesScreen = props => {
   const [ isFetching, setIsFetching ] = useState(false);
   const [ pickedLocation, setPickedLocation ] = useState();
   const [ status, requestPermission ] = Location.useForegroundPermissions();
-
+  
   const getLocationHandler = async () => {
 
     if (status.status !== 'granted') {

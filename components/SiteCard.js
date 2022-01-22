@@ -62,8 +62,10 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     borderColor: COLORS.primary,
     borderWidth: 1,
-    marginRight: 10,
+    marginRight: 15,
+    margin: 5,
     overflow: "hidden",
+    backgroundColor: COLORS.background,
   },
 
   text: {

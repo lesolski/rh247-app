@@ -33,16 +33,20 @@ const MonthOverview = (props) => {
       </View>
     </View>
   );
-};
+}; 
 
 const styles = StyleSheet.create({
+  // main container needs to adjust to overviewBox in the screen 
   mainContainer: {
+    flex: 1,
+    height: "100%",
+    width: "100%",
     alignItems: "center",
   },
 
   box: {
     flexDirection: "row",
-    height: 300,
+    height: "30%",
     width: "90%",
   },
 
@@ -59,9 +63,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
-    borderWidth: 1,
-    borderColor: COLORS.primary,
     margin: 5,
+    backgroundColor: COLORS.foreground,
   },
 
   leftBottom: {
@@ -69,29 +72,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
-    borderWidth: 1,
-    borderColor: COLORS.primary,
     margin: 5,
+    backgroundColor: COLORS.foreground,
   },
 
   rightTop: {
     flex: 3,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: COLORS.primary,
     margin: 5,
+    borderRadius: 15,
+    backgroundColor: COLORS.foreground,
   },
 
   rightBottom: {
     flex: 2,
     alignItems: "center",
     justifyContent: "center",
+    margin: 5,
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: COLORS.primary,
-    margin: 5,
+    backgroundColor: COLORS.foreground,
   },
 
   bigText: {
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
 
   smallText: {
     fontFamily: "roboto-mono",
-    color: COLORS.primary,
+    color: COLORS.text,
     fontSize: 12,
   },
 
