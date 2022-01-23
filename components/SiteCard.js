@@ -1,17 +1,19 @@
 // ./components/SiteCard.js
 
 import React from "react";
-import { TouchableOpacity, View, StyleSheet, Text, Image } from "react-native";
+import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 
 // Styling imports
 import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
 const SiteCard = (props) => {
+  const theme = useTheme();
   return (
     <TouchableOpacity style={styles.card}>
       <View style={styles.avatar}>
-        <Ionicons name="business" size={40} color={COLORS.primary} />
+        <Ionicons name="business" size={40} color={theme.colors.primary} />
         {/* remove icon and add image in production
         <Image
           source={{
@@ -23,7 +25,9 @@ const SiteCard = (props) => {
       <View>
         <View style={{ flexDirection: "row", paddingBottom: 10 }}>
           <Ionicons />
-          <Text style={[styles.text, { fontSize: 19, color: COLORS.primary }]}>
+          <Text
+            style={[styles.text, { fontSize: 19, color: theme.colors.primary }]}
+          >
             {props.item.ref}
           </Text>
         </View>

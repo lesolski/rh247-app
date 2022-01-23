@@ -5,12 +5,10 @@ import { Pressable } from "react-native";
 
 // Styling imports
 import { Ionicons } from "@expo/vector-icons";
-import COLORS from "../constants/colors";
-import MyTheme from "../constants/theme";
 
 // Navigation imports
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { DrawerActions } from "@react-navigation/native";
+import { DrawerActions, useTheme } from "@react-navigation/native";
 
 // Screen imports
 import ColleaguesScreen from "./../screens/colleagues/ColleaguesScreen";
@@ -18,9 +16,9 @@ import ColleaguesScreen from "./../screens/colleagues/ColleaguesScreen";
 const Tabs = createBottomTabNavigator();
 
 const ColleaguesTabNavigator = ({ navigation }) => {
+  const theme = useTheme();
   return (
     <Tabs.Navigator
-      theme={MyTheme}
       initialRouteName="RH247"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -36,16 +34,16 @@ const ColleaguesTabNavigator = ({ navigation }) => {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         headerStyle: {
-          backgroundColor: COLORS.foreground,
-          borderBottomColor: COLORS.primary,
+          backgroundColor: theme.colors.background,
+          borderBottomColor: theme.colors.primary,
           borderBottomWidth: 2,
         },
-        headerTintColor: COLORS.primary,
+        headerTintColor: theme.colors.primary,
         headerTitleStyle: {
           fontSize: 20,
           fontFamily: "roboto-mono",
         },
-        tabBarActiveTintColor: COLORS.primary,
+        tabBarActiveTintColor: theme.colors.primary,
       })}
     >
       <Tabs.Screen
@@ -57,7 +55,11 @@ const ColleaguesTabNavigator = ({ navigation }) => {
               style={{ marginLeft: 10 }}
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
             >
-              <Ionicons name="menu-outline" size={32} color={COLORS.primary} />
+              <Ionicons
+                name="menu-outline"
+                size={32}
+                color={theme.colors.primary}
+              />
             </Pressable>
           ),
         }}
@@ -72,7 +74,11 @@ const ColleaguesTabNavigator = ({ navigation }) => {
               style={{ marginLeft: 10 }}
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
             >
-              <Ionicons name="menu-outline" size={32} color={COLORS.primary} />
+              <Ionicons
+                name="menu-outline"
+                size={32}
+                color={theme.colors.primary}
+              />
             </Pressable>
           ),
         }}

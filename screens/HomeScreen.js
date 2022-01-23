@@ -9,7 +9,7 @@ import COLORS from "../constants/colors";
 // Components
 import MonthOverview from "../components/MonthOverview";
 
-const HomeScreen = (props) => {
+const HomeScreen = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.pinnedMsg}></View>

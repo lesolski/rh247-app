@@ -5,6 +5,7 @@ import { View, FlatList, TextInput, StyleSheet } from "react-native";
 
 // Redux imports
 import { useSelector } from "react-redux";
+import { useTheme } from '@react-navigation/native';
 
 // Components imports
 import SiteCard from "../../components/SiteCard";
@@ -18,14 +19,14 @@ const _renderItem = ({ item }) => <SiteCard item={item} />;
 
 const ListOfSitesScreen = () => {
   const listOfSites = useSelector((state) => state.sites.sites);
-
+  const theme = useTheme();
   return (
     <View style={styles.mainContainer}>
       {/* Search Bar*/}
       <View style={styles.searchBar}>
         <Ionicons
           name="search"
-          color={COLORS.primary}
+          color={theme.colors.primary}
           size={30}
           style={{ paddingBottom: 4 }}
         />

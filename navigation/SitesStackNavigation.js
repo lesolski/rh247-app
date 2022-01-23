@@ -6,10 +6,9 @@ import { Pressable } from "react-native";
 // Styling imports
 import { Ionicons } from "@expo/vector-icons";
 import COLORS from "../constants/colors";
-import MyTheme from "../constants/theme";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import { DrawerActions } from "@react-navigation/native";
+import { DrawerActions, useTheme } from "@react-navigation/native";
 
 // Screen imports
 import ListOfSitesScreen from "../screens/sites/ListOfSitesScreen";
@@ -19,17 +18,18 @@ import MapViewScreen from "../screens/sites/MapViewScreen";
 const Stack = createStackNavigator();
 
 const SitesStackNavigator = ({ navigation }) => {
+
+  const theme = useTheme();
   return (
     <Stack.Navigator
-      theme={MyTheme}
       initialRouteName="List of sites"
       screenOptions={{
         headerStyle: {
-          backgroundColor: COLORS.foreground,
-          borderBottomColor: COLORS.primary,
+          backgroundColor: theme.colors.foreground,
+          borderBottomColor: theme.colors.primary,
           borderBottomWidth: 2,
         },
-        headerTintColor: COLORS.primary,
+        headerTintColor: theme.colors.primary,
         headerTitleStyle: {
           fontSize: 20,
           fontFamily: "roboto-mono",
@@ -45,7 +45,7 @@ const SitesStackNavigator = ({ navigation }) => {
               style={{ marginRight: 5 }}
               onPress={() => navigation.navigate("Add site")}
             >
-              <Ionicons name={"add"} size={28} color={COLORS.primary} />
+              <Ionicons name={"add"} size={28} color={theme.colors.primary} />
             </Pressable>
           ),
           headerLeft: () => (
@@ -53,7 +53,7 @@ const SitesStackNavigator = ({ navigation }) => {
               style={{ marginLeft: 10 }}
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
             >
-              <Ionicons name="menu-outline" size={28} color={COLORS.primary} />
+              <Ionicons name="menu-outline" size={28} color={theme.colors.primary} />
             </Pressable>
           ),
         }}

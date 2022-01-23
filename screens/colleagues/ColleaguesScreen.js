@@ -14,15 +14,16 @@ import {
 import COLORS from "../../constants/colors";
 import DATA from "../../data/colleagues";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
-const renderItem = ({ item, props }) => {
+const renderItem = ({ item }, theme) => {
   return (
     <View
       style={{
         flexDirection: "row",
         marginVertical: 6,
         alignItems: "center",
-        backgroundColor: COLORS.foreground,
+        backgroundColor: theme.colors.background,
         paddingVertical: 10,
         borderRadius: 15,
         overflow: "hidden",
@@ -35,7 +36,7 @@ const renderItem = ({ item, props }) => {
           justifyContent: "center",
           height: 50,
           width: 50,
-          backgroundColor: COLORS.primary,
+          backgroundColor: theme.colors.primary,
           borderRadius: 25,
           marginLeft: 20,
           marginRight: 20,
@@ -59,7 +60,11 @@ const renderItem = ({ item, props }) => {
         }}
       >
         <TouchableOpacity onPress={() => Alert.alert(item.phone)}>
-          <Ionicons name="logo-whatsapp" size={36} color={COLORS.primary} />
+          <Ionicons
+            name="logo-whatsapp"
+            size={36}
+            color={theme.colors.primary}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -69,11 +74,13 @@ const renderItem = ({ item, props }) => {
 const _keyExtractor = (item, index) => item.idx;
 
 const ColleaguesScreen = (props) => {
+  const theme = useTheme();
+
   return (
     <View style={styles.mainContainer}>
       <FlatList
         data={DATA}
-        renderItem={renderItem}
+        renderItem={(item) => renderItem(item, theme)}
         keyExtractor={_keyExtractor}
         style={{ width: "90%", paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
