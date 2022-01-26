@@ -20,6 +20,7 @@ const _renderItem = ({ item }) => <SiteCard item={item} />;
 const ListOfSitesScreen = () => {
   const listOfSites = useSelector((state) => state.sites.sites);
   const theme = useTheme();
+
   return (
     <View style={styles.mainContainer}>
       {/* Search Bar*/}
@@ -43,6 +44,8 @@ const ListOfSitesScreen = () => {
         renderItem={_renderItem}
         keyExtractor={(item) => item.id}
         style={styles.list}
+        contentContainerStyle={{paddingVertical:20, marginVertical:10}}
+        pagingEnabled={true}
       />
     </View>
   );

@@ -4,17 +4,26 @@ import React from "react";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 
 // Styling imports
-import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 
 const SiteCard = (props) => {
   const theme = useTheme();
   return (
-    <TouchableOpacity style={styles.card}>
-      <View style={styles.avatar}>
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: theme.colors.foreground }]}
+    >
+      <View
+        style={[
+          styles.avatar,
+          {
+            backgroundColor: theme.colors.background,
+            borderColor: theme.colors.primary,
+          },
+        ]}
+      >
         <Ionicons name="business" size={40} color={theme.colors.primary} />
-        {/* remove icon and add image in production
+        {/* remove icon and add image in production with props 
         <Image
           source={{
             uri: "https://image.shutterstock.com/image-vector/cloud-data-center-abstract-monogram-260nw-1886798524.jpg",
@@ -33,11 +42,13 @@ const SiteCard = (props) => {
         </View>
         <View style={{ flexDirection: "row" }}>
           <Ionicons />
-          <Text style={styles.text}>{props.item.client}</Text>
+          <Text style={[styles.text, { color: theme.colors.text}]}>
+            {props.item.client}
+          </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Ionicons />
-          <Text style={styles.text}>
+          <Text style={[styles.text, { color: theme.colors.text }]}>
             {props.item.city}, {props.item.country}
           </Text>
         </View>
@@ -52,10 +63,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     padding: 10,
-    borderRadius: 20,
-    marginBottom: 15,
+    borderRadius: 10,
     overflow: "hidden",
-    backgroundColor: COLORS.foreground,
+    shadowColor: "black",
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 6,
   },
 
   avatar: {
@@ -64,17 +77,14 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 40,
-    borderColor: COLORS.primary,
     borderWidth: 1,
     marginRight: 15,
     margin: 5,
     overflow: "hidden",
-    backgroundColor: COLORS.background,
   },
 
   text: {
     fontFamily: "roboto-mono",
-    color: COLORS.text,
   },
 });
 

@@ -25,6 +25,11 @@ import { useTheme } from "@react-navigation/native";
 import DateSelector from "../components/DateSelector";
 import CategoryCard from "../components/CategoryCard";
 
+var currentdate = new Date();
+var oneJan = new Date(currentdate.getFullYear(), 0, 1);
+var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
+var weekNum = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7);
+
 const ExpenseScreen = (props) => {
   const theme = useTheme();
   // selected
@@ -49,16 +54,10 @@ const ExpenseScreen = (props) => {
       setImage(result.uri);
     }
   };
-
-  const categories = [
-    { id: 1, name: "materials" },
-    { id: 2, name: "shop" },
-  ];
-
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
-      style={{ flex: 1, justifyContent: "center" }}
+      style={{ flex: 1, justifyContent: "center", marginBottom:40, marginTop:50}}
     >
       <ScrollView
         style={{ flex: 1, width: "100%" }}
@@ -67,21 +66,22 @@ const ExpenseScreen = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.mainContainer}>
-          <View style={styles.categoryTitle}>
+          <View style={[styles.categoryTitle, {justifyContent:'space-between', alignItems:'center'}]}>
             <Text
               style={[styles.categoryTitleText, { color: theme.colors.title }]}
             >
               Choose Date
             </Text>
+            <Text
+              style={[styles.categoryTitleText, { color: theme.colors.title, fontSize:12 }]}
+            >
+             Week {weekNum} 
+            </Text>
+
           </View>
-          <View style={{ height:200 }}>
+          <View style={{ height: 100 }}>
             {/* render flat list here */}
             <DateSelector />
-            <FlatList
-              data={categories}
-              extraData={selectedId}
-              renderItem={(item) => _renderItem(item)}
-            />
           </View>
 
           {/* CATEGORY LABEL */}
@@ -230,6 +230,7 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     marginTop: 15,
+    marginBottom: 40
   },
 
   card: {
