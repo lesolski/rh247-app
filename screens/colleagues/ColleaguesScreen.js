@@ -23,7 +23,7 @@ const renderItem = ({ item }, theme) => {
         flexDirection: "row",
         marginVertical: 6,
         alignItems: "center",
-        backgroundColor: theme.colors.background,
+        backgroundColor: theme.colors.foreground,
         paddingVertical: 10,
         borderRadius: 15,
         overflow: "hidden",
@@ -45,11 +45,11 @@ const renderItem = ({ item }, theme) => {
         <Image source={{ uri: item.image }} style={{ height: 50, width: 50 }} />
       </View>
       <View style={{ maxWidth: 200 }}>
-        <Text style={[styles.text, { fontSize: 16, color: COLORS.primary }]}>
+        <Text style={[styles.text, { fontSize: 16, color: theme.colors.primary }]}>
           {item.name + " " + item.lastname}
         </Text>
-        <Text style={[styles.text]}>{item.city}</Text>
-        <Text style={[styles.text]}>{item.email}</Text>
+        <Text style={[styles.text, {color: theme.colors.text}]}>{item.city}</Text>
+        <Text style={[styles.text, {color: theme.colors.text}]}>{item.email}</Text>
       </View>
       <View
         style={{
@@ -63,7 +63,7 @@ const renderItem = ({ item }, theme) => {
           <Ionicons
             name="logo-whatsapp"
             size={36}
-            color={theme.colors.primary}
+            color={"rgb(29,185,84)"}
           />
         </TouchableOpacity>
       </View>
@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "roboto-mono",
     fontSize: 12,
-    color: "white",
   },
 });
 

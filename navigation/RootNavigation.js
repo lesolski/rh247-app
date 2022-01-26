@@ -26,12 +26,13 @@ import { DefaultTheme, DarkTheme } from "@react-navigation/native";
 const myDefaultTheme = {
   ...DefaultTheme,
   colors: {
-    primary: "rgb(0, 0, 255)",
-    background: "#ddd",
+    primary: "rgb(66, 103, 178)",
+    background: "rgb(245,245,245)",
     foreground: "rgb(255, 255, 255)",
-    text: "rgb(0, 0, 0)",
-    accent: "rgb(255, 255, 0)",
-  },
+    text: "rgb(18, 18, 18)",
+    contrast_text: "rgb(33,33,33)",
+    title: "rgb(18, 18, 18)"
+  }
 };
 
 const myDarkTheme = {
@@ -39,10 +40,12 @@ const myDarkTheme = {
   colors: {
     primary: "rgb(29,185,84)",
     background: "rgb(33,33,33)",
-    text: "rgb(179, 179, 179)",
     foreground: "rgb(18, 18, 18)",
-    accent: "rgb(255, 255, 0)",
-  },
+    text: "rgb(179, 179, 179)",
+    contrast_text: "rgb(255,255,255)",
+    title: "rgb(150, 150, 150)"
+
+  }
 };
 
 const Drawer = createDrawerNavigator();
@@ -51,7 +54,6 @@ export default RootNavigation = () => {
   const [isThemeDark, setIsThemeDark] = useState(false);
 
   let theme = isThemeDark ? myDarkTheme : myDefaultTheme;
-  console.log(theme);
   const toggleTheme = React.useCallback(() => {
     return setIsThemeDark(!isThemeDark);
   }, [isThemeDark]);
@@ -63,7 +65,7 @@ export default RootNavigation = () => {
     }),
     [toggleTheme, isThemeDark]
   );
-
+  console.log(theme.dark);
   return (
     <ThemeContext.Provider value={preferences}>
       <NavigationContainer theme={theme}>
@@ -75,12 +77,12 @@ export default RootNavigation = () => {
             drawerInactiveTintColor: theme.colors.text,
             drawerType: "back",
             headerStyle: {
-              backgroundColor: theme.colors.foreground,
-              borderBottomColor: isThemeDark ? theme.colors.primary : "",
-              borderBottomWidth: isThemeDark ? 2 : 0,
+              backgroundColor: isThemeDark ? theme.colors.foreground : theme.colors.primary,
+              borderBottomColor: theme.colors.primary,
+              borderBottomWidth: 2,
             },
-            drawerStyle: { backgroundColor: theme.colors.foreground },
-            headerTintColor: theme.colors.primary,
+            drawerStyle: { backgroundColor: theme.colors.background },
+            headerTintColor: isThemeDark ? theme.colors.primary : theme.colors.background,
             headerTitleStyle: {
               fontSize: 20,
               fontFamily: "roboto-mono",
@@ -98,7 +100,7 @@ export default RootNavigation = () => {
                 <Ionicons
                   name="menu-outline"
                   size={28}
-                  color={theme.colors.primary}
+                  color={isThemeDark ? theme.colors.primary : theme.colors.background}
                 />
               </TouchableOpacity>
             ),
@@ -171,8 +173,8 @@ export default RootNavigation = () => {
             options={{
               title: "Sites",
               drawerIcon: ({ focused, size }) => (
-                <FontAwesome5
-                  name="building"
+                <Ionicons
+                  name={focused ? "business" : "business-outline"}
                   size={size}
                   color={focused ? theme.colors.primary : theme.colors.text}
                 />

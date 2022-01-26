@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   Keyboard,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
 
 // Expo
@@ -18,17 +19,22 @@ import * as ImagePicker from "expo-image-picker";
 // Styling
 import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
 // Components
-import Card from "../components/Card";
-import SelectCard from "../components/SelectCard";
+import DateSelector from "../components/DateSelector";
 import CategoryCard from "../components/CategoryCard";
 
 const ExpenseScreen = (props) => {
+  const theme = useTheme();
   // selected
-  const [isSelected, setIsSelected] = useState(false);
-  const [selectedId, setSelectedId] = useState([]);
+  const [selectedId, setSelectedId] = useState({});
 
+  const handleSelection = (id) => {
+    var selectedId = selectedId;
+    if (selectedId === id) setSelectedId({ selectedItem: null });
+    else setSelectedId({ selectedItem: id });
+  };
   // image picker
   const [image, setImage] = useState(null);
 
@@ -44,12 +50,10 @@ const ExpenseScreen = (props) => {
     }
   };
 
-  const selectedIdHandler = (id) => {
-    if (!isSelected) {
-      setIsSelected(true);
-    }
-    return <View />;
-  };
+  const categories = [
+    { id: 1, name: "materials" },
+    { id: 2, name: "shop" },
+  ];
 
   return (
     <TouchableWithoutFeedback
@@ -64,42 +68,29 @@ const ExpenseScreen = (props) => {
       >
         <View style={styles.mainContainer}>
           <View style={styles.categoryTitle}>
-            <Text style={styles.categoryTitleText}>Choose Date</Text>
+            <Text
+              style={[styles.categoryTitleText, { color: theme.colors.title }]}
+            >
+              Choose Date
+            </Text>
           </View>
-          <View style={{ flexDirection: "row" }}>
-            <SelectCard
-              dateNum={1}
-              dayName="Sat"
-              onPress={() =>
-                isSelected ? setIsSelected(false) : setIsSelected(true)
-              }
-              style={styles.date}
-            ></SelectCard>
-            <SelectCard
-              dateNum={2}
-              dayName="Sat"
-              style={styles.date}
-            ></SelectCard>
-            <SelectCard
-              dateNum={3}
-              dayName="Sat"
-              style={styles.date}
-            ></SelectCard>
-            <SelectCard
-              dateNum={4}
-              dayName="Sat"
-              style={styles.date}
-            ></SelectCard>
-            <SelectCard
-              dateNum={5}
-              dayName="Sat"
-              style={styles.date}
-            ></SelectCard>
+          <View style={{ height:200 }}>
+            {/* render flat list here */}
+            <DateSelector />
+            <FlatList
+              data={categories}
+              extraData={selectedId}
+              renderItem={(item) => _renderItem(item)}
+            />
           </View>
 
           {/* CATEGORY LABEL */}
           <View style={styles.categoryTitle}>
-            <Text style={styles.categoryTitleText}>Category</Text>
+            <Text
+              style={[styles.categoryTitleText, { color: theme.colors.title }]}
+            >
+              Category
+            </Text>
           </View>
           {/* CATEGORY CARDS */}
           <View style={styles.categoryContainer}>
@@ -132,42 +123,70 @@ const ExpenseScreen = (props) => {
 
           {/* AMOUNT LABEL */}
           <View style={styles.categoryTitle}>
-            <Text style={styles.categoryTitleText}>Amount</Text>
+            <Text
+              style={[
+                styles.categoryTitleText,
+                {
+                  color: theme.colors.title,
+                },
+              ]}
+            >
+              Amount
+            </Text>
           </View>
           {/* AMOUNT INPUT */}
           <View style={{ flexDirection: "row" }}>
-            <View style={styles.input}>
+            <View
+              style={[
+                styles.input,
+                { backgroundColor: theme.colors.foreground },
+              ]}
+            >
               <TextInput
                 style={{
                   width: "100%",
                   height: "100%",
                   fontSize: 30,
                   textAlign: "center",
-                  color: COLORS.text,
+                  color: theme.colors.text,
                 }}
                 placeholder="€"
-                placeholderTextColor={COLORS.primary}
+                placeholderTextColor={theme.colors.primary}
                 keyboardType="numeric"
-                keyboardAppearance="dark"
+                keyboardAppearance={theme.dark ? "dark" : "light"}
               />
             </View>
           </View>
 
           {/* UPLOAD PICTURE LABEL */}
           <View style={styles.categoryTitle}>
-            <Text style={styles.categoryTitleText}>Upload Image</Text>
+            <Text
+              style={[styles.categoryTitleText, { color: theme.colors.title }]}
+            >
+              Upload Image
+            </Text>
           </View>
 
           {/* UPLOAD PICTURE CARD */}
           {!image && (
-            <View style={styles.cameraUploadBox}>
+            <View
+              style={[
+                styles.cameraUploadBox,
+                { backgroundColor: theme.colors.foreground },
+              ]}
+            >
               <Pressable style={{ alignItems: "center" }} onPress={pickImage}>
                 <Ionicons
                   name="camera-outline"
                   size={60}
-                  color={COLORS.primary}
+                  color={theme.colors.primary}
                 />
-                <Text style={{ color: COLORS.text, fontFamily: "roboto-mono" }}>
+                <Text
+                  style={{
+                    color: theme.colors.text,
+                    fontFamily: "roboto-mono",
+                  }}
+                >
                   Click on camera to add a photo
                 </Text>
               </Pressable>
@@ -186,8 +205,18 @@ const ExpenseScreen = (props) => {
           )}
 
           {/* SUBMIT BUTTON */}
-          <TouchableOpacity style={styles.submitButton}>
-            <Text style={styles.buttonText}>Claim</Text>
+          <TouchableOpacity
+            style={[
+              styles.submitButton,
+              {
+                backgroundColor: theme.colors.foreground,
+                borderColor: theme.colors.primary,
+              },
+            ]}
+          >
+            <Text style={[styles.buttonText, { color: theme.colors.primary }]}>
+              Claim
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -202,6 +231,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 15,
   },
+
   card: {
     flex: 1,
     height: 50,
@@ -209,15 +239,16 @@ const styles = StyleSheet.create({
     margin: 5,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: COLORS.foreground,
-    borderRadius: 10,
+    shadowColor: "black",
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 6,
   },
 
   input: {
     width: "100%",
     height: 50,
     shadowColor: "black",
-    backgroundColor: COLORS.foreground,
     shadowOffset: { width: 4, height: 4 },
     shadowRadius: 6,
     shadowOpacity: 0.3,
@@ -247,6 +278,7 @@ const styles = StyleSheet.create({
     color: "grey",
     fontFamily: "roboto-mono",
   },
+
   categoryContainer: {
     flexDirection: "column",
     alignItems: "center",
@@ -258,8 +290,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    backgroundColor: COLORS.foreground,
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.2,
     shadowColor: "black",
     shadowOffset: { width: 4, height: 4 },
     shadowRadius: 6,
@@ -280,10 +311,13 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: COLORS.foreground,
     borderRadius: 10,
-    borderColor: COLORS.primary,
     borderWidth: 2,
+    borderRadius: 10,
+    shadowOpacity: 0.2,
+    shadowColor: "black",
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 6,
   },
 
   buttonText: {
@@ -300,10 +334,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "black",
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowOffset: { width: 4, height: 4 },
     shadowRadius: 6,
-    backgroundColor: "white",
     borderRadius: 10,
   },
 

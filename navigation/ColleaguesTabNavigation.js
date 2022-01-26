@@ -34,16 +34,20 @@ const ColleaguesTabNavigator = ({ navigation }) => {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         headerStyle: {
-          backgroundColor: theme.colors.background,
+          backgroundColor: theme.dark ? theme.colors.foreground : theme.colors.primary,
           borderBottomColor: theme.colors.primary,
           borderBottomWidth: 2,
         },
-        headerTintColor: theme.colors.primary,
+        headerTintColor: theme.dark ? theme.colors.primary : theme.colors.background,
         headerTitleStyle: {
           fontSize: 20,
           fontFamily: "roboto-mono",
         },
-        tabBarActiveTintColor: theme.colors.primary,
+        tabBarActiveTintColor: theme.dark ? theme.colors.primary : theme.colors.background,
+          tabBarInactiveTintColor: theme.dark ? theme.colors.text : theme.colors.foreground,
+        tabBarStyle: {
+          backgroundColor: theme.dark ? theme.colors.foreground : theme.colors.primary
+        }    
       })}
     >
       <Tabs.Screen
@@ -57,8 +61,8 @@ const ColleaguesTabNavigator = ({ navigation }) => {
             >
               <Ionicons
                 name="menu-outline"
-                size={32}
-                color={theme.colors.primary}
+                size={30}
+                color={theme.dark ? theme.colors.primary : theme.colors.background}
               />
             </Pressable>
           ),
@@ -76,8 +80,8 @@ const ColleaguesTabNavigator = ({ navigation }) => {
             >
               <Ionicons
                 name="menu-outline"
-                size={32}
-                color={theme.colors.primary}
+                size={30}
+                color={theme.dark ? theme.colors.primary : theme.colors.background}
               />
             </Pressable>
           ),

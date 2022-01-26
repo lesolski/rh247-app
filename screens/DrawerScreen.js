@@ -30,7 +30,7 @@ const DrawerContent = (props) => {
         <View style={[styles.avatar, { borderColor: theme.colors.primary }]}>
           <Image source={require("../assets/avatar.jpeg")} />
         </View>
-        <Text style={styles.userText}>Sasha D.</Text>
+        <Text style={[styles.userText, {color: theme.colors.contrast_text}]}>Sasha D.</Text>
       </SafeAreaView>
 
       {/* Render Screen Fields */}
@@ -39,7 +39,7 @@ const DrawerContent = (props) => {
       {/** Theme Switch Toggle */}
       <Switch
         trackColor={{ false: "#fff", true: theme.colors.text }}
-        thumbColor={isThemeDark ? theme.colors.primary : "#ccc"}
+        thumbColor={theme.colors.primary}
         onValueChange={toggleTheme}
         value={isThemeDark}
         style={{ alignSelf: "flex-end", marginRight: 10 }}

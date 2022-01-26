@@ -2,7 +2,6 @@
 
 // React + RN
 import React, { useState } from "react";
-import { TouchableOpacity } from "react-native";
 
 // Redux
 import { Provider } from "react-redux";
@@ -14,7 +13,6 @@ import * as Font from "expo-font";
 
 // Navigation
 import RootNavigation from "./navigation/RootNavigation";
-
 
 // load fonts first
 const fetchFonts = () => {

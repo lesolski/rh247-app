@@ -2,18 +2,18 @@
 
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
-
-import COLORS from "../constants/colors";
+import { useTheme } from "@react-navigation/native";
 
 const SelectCard = (props) => {
+  const theme = useTheme();
   return (
     <TouchableOpacity
       style={{
         ...styles.shadow,
         ...props.style,
         ...(props.isSelected
-          ? { backgroundColor: COLORS.primary }
-          : { backgroundColor: COLORS.foreground }),
+          ? { backgroundColor: theme.colors.primary }
+          : { backgroundColor: theme.colors.foreground }),
       }}
       onPress={props.onPress}
       activeOpacity={0.3}
@@ -22,8 +22,8 @@ const SelectCard = (props) => {
         style={[
           styles.dateText,
           props.isSelected
-            ? { color: COLORS.foreground }
-            : { color: COLORS.primary },
+            ? { color: theme.colors.foreground }
+            : { color: theme.colors.primary },
         ]}
       >
         {props.dateNum}
@@ -32,8 +32,8 @@ const SelectCard = (props) => {
         style={[
           styles.dayText,
           props.isSelected
-            ? { color: COLORS.foreground }
-            : { color: COLORS.text },
+            ? { color: theme.colors.foreground }
+            : { color: theme.colors.text },
         ]}
       >
         {props.dayName}
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 4, height: 4 },
     shadowRadius: 6,
-    backgroundColor: "white",
     borderRadius: 10,
   },
 
@@ -59,6 +58,7 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-mono",
     fontSize: 30,
   },
+
   dayText: {
     fontFamily: "roboto-mono",
     fontSize: 15,

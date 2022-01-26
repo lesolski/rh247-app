@@ -17,10 +17,11 @@ import COLORS from "../../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const AddSiteScreen = (props) => {
   const pinCoords = useSelector((state) => state.sites.coords);
+  const dispatch = useDispatch();
 
   return (
     <ScrollView
