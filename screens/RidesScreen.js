@@ -9,13 +9,10 @@ import MapView, { Marker }from 'react-native-maps';
 
 // Components imports
 import RideInfoCard from '../components/RideInfoCard';
-import StaticMap from '../components/StaticMap';
 
 // Styling imports
 import COLORS from '../constants/colors';
-
 import DATA from '../data/rides';
-import KEYS from '../secrets';
 
 // helper function to render custom components in flatlist
 const _renderItem = ( {item}, props ) => {
@@ -96,7 +93,6 @@ const styles = StyleSheet.create({
     flex:1,
     width:'90%',
     margin:20,
-    backgroundColor:COLORS.primary,
     borderRadius:15,
     alignItems: 'center',
     justifyContent: 'center'
@@ -115,8 +111,6 @@ const styles = StyleSheet.create({
     marginRight:10,  
     justifyContent:'center',
     alignItems:'center',
-    backgroundColor:COLORS.foreground,
-    borderColor:COLORS.primary,
     borderRadius:15,
     borderWidth:2,
     padding:10
@@ -125,7 +119,6 @@ const styles = StyleSheet.create({
   startButtonText: {
     fontFamily:'roboto-mono',
     fontSize:20,
-    color:COLORS.primary
   },
 
   stopButton: {
@@ -133,7 +126,6 @@ const styles = StyleSheet.create({
     marginLeft:10,
     justifyContent:'center',
     alignItems:'center',
-    backgroundColor:COLORS.foreground,
     borderColor:'red',
     borderRadius:15,
     borderWidth:2,
@@ -149,7 +141,6 @@ const styles = StyleSheet.create({
   pastRidesBox: {
     flex:1,
     width:'100%',
-    backgroundColor: COLORS.background,
     alignItems: 'center'
   },
 

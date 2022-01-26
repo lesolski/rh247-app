@@ -57,27 +57,37 @@ const ExpenseScreen = (props) => {
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
-      style={{ flex: 1, justifyContent: "center", marginBottom:40, marginTop:50}}
+      style={{
+        flex: 1,
+        justifyContent: "center",
+      }}
     >
       <ScrollView
-        style={{ flex: 1, width: "100%" }}
+        style={{ width: "100%", flex: 1 }}
         contentContainerStyle={{ alignItems: "center" }}
         bounces={true}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.mainContainer}>
-          <View style={[styles.categoryTitle, {justifyContent:'space-between', alignItems:'center'}]}>
+          <View
+            style={[
+              styles.categoryTitle,
+              { justifyContent: "space-between", alignItems: "center" },
+            ]}
+          >
             <Text
               style={[styles.categoryTitleText, { color: theme.colors.title }]}
             >
               Choose Date
             </Text>
             <Text
-              style={[styles.categoryTitleText, { color: theme.colors.title, fontSize:12 }]}
+              style={[
+                styles.categoryTitleText,
+                { color: theme.colors.title, fontSize: 12 },
+              ]}
             >
-             Week {weekNum} 
+              Week {weekNum}
             </Text>
-
           </View>
           <View style={{ height: 100 }}>
             {/* render flat list here */}
@@ -92,6 +102,7 @@ const ExpenseScreen = (props) => {
               Category
             </Text>
           </View>
+
           {/* CATEGORY CARDS */}
           <View style={styles.categoryContainer}>
             {/* LEFT SIDE  */}
@@ -106,6 +117,7 @@ const ExpenseScreen = (props) => {
                 category={"materials"}
               ></CategoryCard>
             </View>
+
             {/* RIGHT SIDE  */}
             <View style={{ flexDirection: "row" }}>
               <CategoryCard
@@ -124,16 +136,12 @@ const ExpenseScreen = (props) => {
           {/* AMOUNT LABEL */}
           <View style={styles.categoryTitle}>
             <Text
-              style={[
-                styles.categoryTitleText,
-                {
-                  color: theme.colors.title,
-                },
-              ]}
+              style={[styles.categoryTitleText, { color: theme.colors.title }]}
             >
               Amount
             </Text>
           </View>
+
           {/* AMOUNT INPUT */}
           <View style={{ flexDirection: "row" }}>
             <View
@@ -158,49 +166,94 @@ const ExpenseScreen = (props) => {
             </View>
           </View>
 
-          {/* UPLOAD PICTURE LABEL */}
-          <View style={styles.categoryTitle}>
-            <Text
-              style={[styles.categoryTitleText, { color: theme.colors.title }]}
-            >
-              Upload Image
-            </Text>
-          </View>
-
           {/* UPLOAD PICTURE CARD */}
+
           {!image && (
-            <View
-              style={[
-                styles.cameraUploadBox,
-                { backgroundColor: theme.colors.foreground },
-              ]}
-            >
-              <Pressable style={{ alignItems: "center" }} onPress={pickImage}>
-                <Ionicons
-                  name="camera-outline"
-                  size={60}
-                  color={theme.colors.primary}
-                />
+            <View style={{ flex: 1, minHeight: 400, width: "100%" }}>
+              <View style={styles.categoryTitle}>
                 <Text
-                  style={{
-                    color: theme.colors.text,
-                    fontFamily: "roboto-mono",
-                  }}
+                  style={[
+                    styles.categoryTitleText,
+                    { color: theme.colors.title },
+                  ]}
                 >
-                  Click on camera to add a photo
+                  Upload Image
                 </Text>
-              </Pressable>
+              </View>
+              <View
+                style={[
+                  styles.cameraUploadBox,
+                  { backgroundColor: theme.colors.foreground },
+                ]}
+              >
+                <Pressable style={{ alignItems: "center" }} onPress={pickImage}>
+                  <Ionicons
+                    name="camera-outline"
+                    size={60}
+                    color={theme.colors.primary}
+                  />
+                  <Text
+                    style={{
+                      color: theme.colors.text,
+                      fontFamily: "roboto-mono",
+                    }}
+                  >
+                    Click on camera to add a photo
+                  </Text>
+                </Pressable>
+              </View>
             </View>
           )}
           {image && (
             <View
-              style={{ ...styles.cameraUploadBox, ...{ overflow: "hidden" } }}
+              style={{
+                flex: 1,
+                width: "100%",
+                minHeight: 400,
+                alignItems: "center",
+              }}
             >
-              <Image
-                source={{ uri: image }}
-                style={{ flex: 1, width: 300, height: 300 }}
-                resizeMode="contain"
-              />
+              <View
+                style={[
+                  styles.categoryTitle,
+                  { flexDirection: "row", justifyContent: "space-between" },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.categoryTitleText,
+                    { color: theme.colors.title },
+                  ]}
+                >
+                  Upload Image
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Pressable onPress={pickImage} style={{flexDirection:'row'}}>
+                    <Text style={[styles.categoryTitleText, { color: "red" }]}>
+                      Retake
+                    </Text>
+                    <Ionicons name="trash-outline" size={28} color={"red"} />
+                  </Pressable>
+                </View>
+              </View>
+              <View
+                style={[
+                  styles.cameraUploadBox,
+                  { backgroundColor: theme.colors.foreground },
+                ]}
+              >
+                <Image
+                  source={{ uri: image }}
+                  style={{ flex: 1, width: 300, height: 300 }}
+                  resizeMode="contain"
+                />
+              </View>
             </View>
           )}
 
@@ -229,8 +282,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "90%",
     alignItems: "center",
-    marginTop: 15,
-    marginBottom: 40
+    marginBottom: 30,
   },
 
   card: {
@@ -286,8 +338,8 @@ const styles = StyleSheet.create({
   },
 
   cameraUploadBox: {
+    flex: 1,
     width: "100%",
-    height: "30%",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -307,7 +359,7 @@ const styles = StyleSheet.create({
   },
 
   submitButton: {
-    marginVertical: 28,
+    marginTop: 28,
     height: 50,
     width: "100%",
     alignItems: "center",
@@ -326,25 +378,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: COLORS.primary,
     fontFamily: "roboto-mono",
-  },
-
-  date: {
-    flex: 1,
-    height: 70,
-    marginHorizontal: 6,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "black",
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 4, height: 4 },
-    shadowRadius: 6,
-    borderRadius: 10,
-  },
-
-  dateText: {
-    fontSize: 25,
-    fontWeight: "600",
-    marginBottom: 3,
   },
 });
 
