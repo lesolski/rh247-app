@@ -5,7 +5,6 @@ import { Pressable } from "react-native";
 
 // Styling imports
 import { Ionicons } from "@expo/vector-icons";
-import COLORS from "../constants/colors";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { DrawerActions, useTheme } from "@react-navigation/native";
@@ -18,18 +17,17 @@ import MapViewScreen from "../screens/sites/MapViewScreen";
 const Stack = createStackNavigator();
 
 const SitesStackNavigator = ({ navigation }) => {
-
   const theme = useTheme();
   return (
     <Stack.Navigator
       initialRouteName="List of sites"
       screenOptions={{
         headerStyle: {
-          backgroundColor: theme.colors.foreground,
+          backgroundColor: theme.colors.headerAndTabs,
           borderBottomColor: theme.colors.primary,
           borderBottomWidth: 2,
         },
-        headerTintColor: theme.colors.primary,
+        headerTintColor: theme.colors.headerText,
         headerTitleStyle: {
           fontSize: 20,
           fontFamily: "roboto-mono",
@@ -45,7 +43,7 @@ const SitesStackNavigator = ({ navigation }) => {
               style={{ marginRight: 5 }}
               onPress={() => navigation.navigate("Add site")}
             >
-              <Ionicons name={"add"} size={28} color={theme.colors.primary} />
+              <Ionicons name={"add"} size={28} color={theme.colors.headerText} />
             </Pressable>
           ),
           headerLeft: () => (
@@ -53,7 +51,11 @@ const SitesStackNavigator = ({ navigation }) => {
               style={{ marginLeft: 10 }}
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
             >
-              <Ionicons name="menu-outline" size={28} color={theme.colors.primary} />
+              <Ionicons
+                name="menu-outline"
+                size={28}
+                color={theme.colors.headerText}
+              />
             </Pressable>
           ),
         }}

@@ -21,10 +21,10 @@ import { ThemeContext } from "../contexts/ThemeContext";
 
 const DrawerContent = (props) => {
   const { isThemeDark, toggleTheme } = React.useContext(ThemeContext);
-  const theme = useTheme();
+  const theme = useTheme();  
 
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView {...props}> 
       {/** Avatar + Name */}
       <SafeAreaView style={styles.drawerContainer}>
         <View style={[styles.avatar, { borderColor: theme.colors.primary }]}>
