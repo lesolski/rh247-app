@@ -1,11 +1,11 @@
 // ./screens/sites/ListOfSitesScreen.js
 
-import React from "react";
+import React, { useState } from "react";
 import { View, FlatList, TextInput, StyleSheet } from "react-native";
 
 // Redux imports
 import { useSelector } from "react-redux";
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from "@react-navigation/native";
 
 // Components imports
 import SiteCard from "../../components/SiteCard";
@@ -16,11 +16,16 @@ import { Ionicons } from "@expo/vector-icons";
 
 // pass item object and unpack it in SiteCard component via props and style it there
 const _renderItem = ({ item }) => <SiteCard item={item} />;
-
 const ListOfSitesScreen = () => {
   const listOfSites = useSelector((state) => state.sites.sites);
+  const [refreshing, setRefreshing] = useState();
   const theme = useTheme();
 
+  const _handleRefresh = () => {
+    console.log("i am refreshing list");
+    setRefreshing(!refreshing);
+  };
+  console.log(listOfSites)
   return (
     <View style={styles.mainContainer}>
       {/* Search Bar*/}
@@ -32,9 +37,9 @@ const ListOfSitesScreen = () => {
           style={{ paddingBottom: 4 }}
         />
         <TextInput
-          style={styles.searchText}
+          style={[styles.searchText, { color: theme.colors.primary }]}
           placeholder="Search for a site"
-          placeholderTextColor={COLORS.text}
+          placeholderTextColor={theme.colors.text}
         />
       </View>
 
@@ -44,8 +49,9 @@ const ListOfSitesScreen = () => {
         renderItem={_renderItem}
         keyExtractor={(item) => item.id}
         style={styles.list}
-        contentContainerStyle={{paddingVertical:20, marginVertical:10}}
-        pagingEnabled={true}
+        contentContainerStyle={{ paddingVertical: 20, marginVertical: 10 }}
+        refreshing={false}
+        onRefresh={_handleRefresh}
       />
     </View>
   );
@@ -78,7 +84,6 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    marginTop: 20,
     width: "90%",
   },
 });

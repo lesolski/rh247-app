@@ -4,7 +4,7 @@ import Site from "../models/site";
 import faker from "@faker-js/faker";
 
 // Generate synthetic instances of Site class
-const Sites = new Array(3).fill().map((e, i) => {
+const Sites = new Array(300).fill().map((e, i) => {
   return new Site(
     i,
     faker.company.companyName(),
@@ -14,7 +14,8 @@ const Sites = new Array(3).fill().map((e, i) => {
     faker.address.cityName(),
     faker.address.streetAddress(true),
     faker.address.latitude(),
-    faker.address.longitude()
+    faker.address.longitude(),
+    faker.address.streetAddress(true)
   );
 });
 

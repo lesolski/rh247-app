@@ -40,9 +40,9 @@ const ExpenseScreen = (props) => {
     if (selectedId === id) setSelectedId({ selectedItem: null });
     else setSelectedId({ selectedItem: id });
   };
+
   // image picker
   const [image, setImage] = useState(null);
-
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -234,11 +234,25 @@ const ExpenseScreen = (props) => {
                     alignItems: "center",
                   }}
                 >
-                  <Pressable onPress={pickImage} style={{flexDirection:'row'}}>
-                    <Text style={[styles.categoryTitleText, { color: "red" }]}>
-                      Retake
+                  <Pressable
+                    onPress={pickImage}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={[styles.categoryTitleText, { color: "orange" }]}
+                    >
+                      retake
                     </Text>
-                    <Ionicons name="trash-outline" size={28} color={"red"} />
+                    <Ionicons
+                      name="camera-outline"
+                      size={22}
+                      color={"orange"}
+                      style={{ marginTop: 3, marginLeft: 3 }}
+                    />
                   </Pressable>
                 </View>
               </View>
