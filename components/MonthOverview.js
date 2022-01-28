@@ -4,31 +4,33 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import COLORS from "../constants/colors";
+import { useTheme } from '@react-navigation/native';
 
 const MonthOverview = (props) => {
+  const theme = useTheme();
   return (
-    <View style={styles.mainContainer}>
+    <View style={[styles.mainContainer, props.style]}>
       <View style={styles.box}>
         <View style={styles.leftPart}>
-          <View style={styles.leftTop}>
-            <Text style={styles.bigText}>7</Text>
-            <Text style={styles.smallText}>Deployments</Text>
+          <View style={[styles.field, { flex:3, backgroundColor: theme.colors.foreground}]}>
+            <Text style={[styles.bigText, { color: theme.colors.primary}] }>7</Text>
+            <Text style={[styles.smallText, { color: theme.colors.text}]}>Deployments</Text>
           </View>
-          <View style={styles.leftBottom}>
-            <Text style={styles.bigText}>123</Text>
-            <Text style={styles.smallText}>Hours on clock</Text>
-          </View>
+          <View style={[styles.field, { flex:2, backgroundColor: theme.colors.foreground}]}>
+            <Text style={[styles.bigText, { color: theme.colors.primary}] }>325</Text>
+            <Text style={[styles.smallText, { color: theme.colors.text}]}>Kilometers</Text>
+         </View>
         </View>
 
         <View style={styles.rightPart}>
-          <View style={styles.rightTop}>
-            <Text style={styles.bigText}>365</Text>
-            <Text style={styles.smallText}>Kilometers</Text>
-          </View>
-          <View style={styles.rightBottom}>
-            <Text style={styles.bigText}>6</Text>
-            <Text style={styles.smallText}>Invoices</Text>
-          </View>
+          <View style={[styles.field, {flex: 2, backgroundColor: theme.colors.foreground}]}>
+            <Text style={[styles.bigText, { color: theme.colors.primary}] }>207</Text>
+            <Text style={[styles.smallText, { color: theme.colors.text}]}>Hours</Text>
+         </View>
+          <View style={[styles.field, { flex:3, backgroundColor: theme.colors.foreground}]}>
+            <Text style={[styles.bigText, { color: theme.colors.primary}] }>6</Text>
+            <Text style={[styles.smallText, { color: theme.colors.text}]}>Invoices</Text>
+         </View>
         </View>
       </View>
     </View>
@@ -38,7 +40,6 @@ const MonthOverview = (props) => {
 const styles = StyleSheet.create({
   // main container needs to adjust to overviewBox in the screen 
   mainContainer: {
-    flex: 1,
     height: "100%",
     width: "100%",
     alignItems: "center",
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
 
   box: {
     flexDirection: "row",
-    height: "30%",
+    height: "100%",
     width: "90%",
   },
 
@@ -58,60 +59,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  leftTop: {
-    flex: 2,
+  field : {
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
     margin: 5,
-    backgroundColor: COLORS.foreground,
-  },
-
-  leftBottom: {
-    flex: 3,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 15,
-    margin: 5,
-    backgroundColor: COLORS.foreground,
-  },
-
-  rightTop: {
-    flex: 3,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 5,
-    borderRadius: 15,
-    backgroundColor: COLORS.foreground,
-  },
-
-  rightBottom: {
-    flex: 2,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 5,
-    borderRadius: 15,
-    borderWidth: 1,
-    backgroundColor: COLORS.foreground,
+    shadowOpacity:0.4,
+    shadowColor: 'black',
+    shadowOffset: {width:2, height:2},
+    shadowRadius:5
   },
 
   bigText: {
     fontFamily: "roboto-mono",
-    color: COLORS.primary,
     fontSize: 60,
   },
 
   smallText: {
     fontFamily: "roboto-mono",
-    color: COLORS.text,
     fontSize: 12,
   },
 
   labelText: {
     fontFamily: "roboto-mono",
     fontSize: 20,
-    color: COLORS.text,
-  },
+  }
+
 });
+
 
 export default MonthOverview;

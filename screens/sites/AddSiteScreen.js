@@ -15,11 +15,15 @@ import MapView, { Marker } from "react-native-maps";
 // Styling
 import COLORS from "../../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 
 const AddSiteScreen = (props) => {
+  const theme = useTheme();
+  console.log(theme.dark);
+
   const pinCoords = useSelector((state) => state.sites.coords);
   const dispatch = useDispatch();
 
@@ -27,58 +31,96 @@ const AddSiteScreen = (props) => {
     <ScrollView
       style={styles.mainContainer}
       contentContainerStyle={{ alignItems: "center" }}
+      showsVerticalScrollIndicator={false}
     >
       {/* Client Name Input*/}
       <View style={[styles.inputFieldBox, { marginTop: 30 }]}>
-        <Text style={styles.labelText}>Client Name</Text>
-        <TextInput style={styles.inputText} />
+        <Text style={[styles.labelText, { color: theme.colors.title }]}>
+          Client Name
+        </Text>
+        <TextInput
+          style={[
+            styles.inputText,
+            { backgroundColor: theme.colors.foreground },
+          ]}
+        />
       </View>
 
       {/* Site Reference Input*/}
       <View style={styles.inputFieldBox}>
-        <Text style={styles.labelText}>Site Reference</Text>
-        <TextInput style={styles.inputText} />
+        <Text style={[styles.labelText, { color: theme.colors.title }]}>
+          Site Reference
+        </Text>
+        <TextInput
+          style={[
+            styles.inputText,
+            { backgroundColor: theme.colors.foreground },
+          ]}
+        />
       </View>
 
-      {/* work on logic on what to show and what not based if location picked or not*/}
       <View style={{ width: "90%", height: 240, marginBottom: 12 }}>
-        <Text style={styles.labelText}>Location</Text>
-
+        <Text style={[styles.labelText, { color: theme.colors.title }]}>
+          Location
+        </Text>
         {pinCoords ? (
-          <MapView
-            region={{
-              latitude: pinCoords.latitude,
-              longitude: pinCoords.longitude,
-              latitudeDelta: 0.0091,
-              longitudeDelta: 0.0091,
-            }}
-            onPress={() => props.navigation.navigate("Map")}
-            style={styles.field}
+          <View
+            style={[styles.field, { backgroundColor: theme.colors.foreground }]}
           >
-            <Marker
-              coordinate={pinCoords}
-              title={"Site"}
-              descriptions={"euNetworks"}
-            />
-          </MapView>
+            <MapView
+              region={{
+                latitude: pinCoords.latitude,
+                longitude: pinCoords.longitude,
+                latitudeDelta: 0.0091,
+                longitudeDelta: 0.0091,
+              }}
+              onPress={() => props.navigation.navigate("Map")}
+              style={ [styles.field, {flex: 1, width:'100%', height:'100%', borderRadius:15 }]}
+              userInterfaceStyle={theme.dark ? "dark" : "light"}
+            >
+              <Marker
+                coordinate={pinCoords}
+                title={"Site"}
+                descriptions={"euNetworks"}
+              />
+            </MapView>
+          </View>
         ) : (
-          <View style={styles.field}>
+          <View
+            style={[styles.field, { backgroundColor: theme.colors.foreground }]}
+          >
             <TouchableOpacity onPress={() => props.navigation.navigate("Map")}>
-              <Ionicons name="map-outline" size={40} color={COLORS.primary} />
+              <Ionicons
+                name="map-outline"
+                size={40}
+                color={theme.colors.primary}
+              />
             </TouchableOpacity>
-            <Text style={styles.boxText}>Choose on map - click</Text>
+            <Text style={[styles.boxText, { color: theme.colors.primary }]}>
+              Choose on map - click
+            </Text>
           </View>
         )}
       </View>
 
       {/* CAMERA PICKER */}
       <View style={{ width: "90%", height: 240 }}>
-        <Text style={styles.labelText}>Picture</Text>
-        <View style={styles.field}>
+        <Text style={[styles.labelText, { color: theme.colors.text }]}>
+          Picture
+        </Text>
+        <View
+          style={[styles.field, { backgroundColor: theme.colors.foreground }]}
+        >
           <TouchableOpacity onPress={() => dispatch({})}>
-            <Ionicons name="camera-outline" size={40} color={COLORS.primary} />
+            <Ionicons
+              name="camera-outline"
+              size={40}
+              color={theme.colors.primary}
+            />
           </TouchableOpacity>
-          <Text style={styles.boxText}>Click on camera</Text>
+          <Text style={[styles.boxText, { color: theme.colors.primary }]}>
+            Click on camera
+          </Text>
         </View>
       </View>
     </ScrollView>
@@ -100,7 +142,6 @@ const styles = StyleSheet.create({
     width: "80%",
     fontFamily: "roboto-mono",
     fontSize: 18,
-    color: COLORS.text,
     alignSelf: "flex-start",
     paddingLeft: 10,
     marginBottom: 4,
@@ -112,10 +153,11 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-mono",
     padding: 15,
     color: COLORS.primary,
-    borderColor: COLORS.text,
-    borderWidth: 0.2,
     borderRadius: 15,
-    backgroundColor: COLORS.foreground,
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 6,
   },
 
   field: {
@@ -123,7 +165,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
-    backgroundColor: COLORS.foreground,
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 6,
   },
 
   boxText: {

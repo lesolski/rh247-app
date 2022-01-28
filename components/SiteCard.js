@@ -122,12 +122,14 @@ const SiteCard = (props) => {
                 justifyContent: "flex-start",
                 minHeight: "100%",
               }}
+              showsVerticalScrollIndicator={false}
             >
               <View
                 style={{
                   alignItems: "center",
                   justifyContent: "flex-start",
                   width: "100%",
+                  height: "100%",
                 }}
               >
                 <View
@@ -158,7 +160,7 @@ const SiteCard = (props) => {
                     <Text
                       style={[
                         styles.modalTitleText,
-                        { color: theme.colors.text, fontSize: 18 },
+                        { color: theme.colors.primary, fontSize: 40},
                       ]}
                     >
                       {props.item.ref}
@@ -219,13 +221,15 @@ const SiteCard = (props) => {
                 </View>
                 <View
                   style={{
-                    borderColor:'yellow',
-                    borderWidth:1,
                     height: "40%",
-                    width: "90%",
+                    width: "100%",
                     overflow: "hidden",
-                    borderRadius: 15,
                     marginTop: 5,
+                    shadowColor: "black",
+                    shadowOffset: { width: 4, height: 4 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 5,
+                    padding:"5%",
                   }}
                 >
                   <MapView
@@ -235,8 +239,17 @@ const SiteCard = (props) => {
                       latitudeDelta: 1.99223,
                       longitudeDelta: 1.99999,
                     }}
-                    style={{ flex: 1 }}
+                    style={{
+                      width:'100%',
+                      height:'100%',
+                      shadowColor: "black",
+                      shadowOffset: { width: 4, height: 4 },
+                      shadowOpacity: 0.2,
+                      shadowRadius: 5,
+                      borderRadius:15
+                    }}
                     cacheEnabled={true}
+                    userInterfaceStyle={theme.dark ? "dark" : "light"}
                   >
                     <Marker
                       coordinate={{
@@ -246,20 +259,7 @@ const SiteCard = (props) => {
                     />
                   </MapView>
                 </View>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderColor: "red",
-                    borderWidth: 1,
-                  }}
-                >
-                  <Text style={{ color: "white" }}>iiiii</Text>
-                </View>
-                <View>
-                  <Text> </Text>
-                </View>
+                <View></View>
               </View>
             </ScrollView>
           </View>

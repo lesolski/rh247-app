@@ -4,20 +4,19 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 // Styling
-import COLORS from "../constants/colors";
+import { useTheme } from '@react-navigation/native';
 
 // Components
 import MonthOverview from "../components/MonthOverview";
 
 const HomeScreen = () => {
+  const theme = useTheme();
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.pinnedMsg}></View>
-      <View style={{ marginTop: 20, marginBottom: 8, width: "80%" }}>
-        <Text style={styles.labelText}>Month overview</Text>
-      </View>
-      <View stlye={styles.overviewBox}>
-        <MonthOverview />
+
+      <View style={{ height: "100%", width: "100%"}}>
+        <Text style={[styles.labelText, { color: theme.colors.title }]}>Month overview</Text>
+        <MonthOverview style={{height:"50%", height:300}}/>
       </View>
     </View>
   );
@@ -25,30 +24,14 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    alignItems: "center",
     flex: 1,
-  },
-  pinnedMsg: {
-    width: "90%",
-    height: "50%",
-    marginTop: 20,
-    borderRadius: 15,
-    borderColor: COLORS.primary,
-    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   labelText: {
-    marginTop: 20,
-    marginBottom: 8,
-    width: "80%",
     fontFamily: "roboto-mono",
     fontSize: 20,
-    color: COLORS.text,
-  },
-
-  overviewBox: {
-    flex: 1,
-    height: "50%",
   },
 });
 
