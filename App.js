@@ -2,6 +2,7 @@
 
 // React + RN
 import React, { useState } from "react";
+import 'react-native-reanimated';
 
 // Redux
 import { Provider } from "react-redux";

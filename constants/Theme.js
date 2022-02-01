@@ -1,4 +1,6 @@
 // ./constants/Theme.js
+// i think themes from navigation only have one more property - `dark`
+// if so remove it
 import { DarkTheme as DT, DefaultTheme } from '@react-navigation/native';
 
 export const LightTheme = {
@@ -8,7 +10,7 @@ export const LightTheme = {
     primary: "rgb(66, 103, 178)",
     background: "rgb(245,245,245)",
     foreground: "rgb(255, 255, 255)",
-    text: "rgb(18, 18, 18)",
+    text: "rgb(100, 100, 100)",
     contrast_text: "rgb(33,33,33)",
     title: "rgb(18, 18, 18)",
     headerAndTabs: "rgb(66, 103, 178)",
@@ -31,4 +33,3 @@ export const DarkTheme = {
   }
 };
 
-console.log(DarkTheme);

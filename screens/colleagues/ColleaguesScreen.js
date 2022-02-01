@@ -11,13 +11,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import COLORS from "../../constants/colors";
 import DATA from "../../data/colleagues";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 
 const renderItem = ({ item }, theme) => {
   return (
+    <View style={{flex:1, backgroundColor:'transparent', paddingHorizontal:20}}>
     <View
       style={{
         flexDirection: "row",
@@ -26,11 +26,15 @@ const renderItem = ({ item }, theme) => {
         backgroundColor: theme.colors.foreground,
         paddingVertical: 10,
         borderRadius: 15,
-        overflow: "hidden",
+        shadowColor: "black",
+        shadowOffset: {width:2, height:4 },
+        shadowOpacity: 0.4,
+        shadowRadius:8
       }}
     >
       <View
         style={{
+          padding:20,
           overflow: "hidden",
           alignItems: "center",
           justifyContent: "center",
@@ -68,6 +72,7 @@ const renderItem = ({ item }, theme) => {
         </TouchableOpacity>
       </View>
     </View>
+    </View>
   );
 };
 
@@ -82,7 +87,7 @@ const ColleaguesScreen = (props) => {
         data={DATA}
         renderItem={(item) => renderItem(item, theme)}
         keyExtractor={_keyExtractor}
-        style={{ width: "90%", paddingTop: 20 }}
+        style={{ width: "100%", paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       />

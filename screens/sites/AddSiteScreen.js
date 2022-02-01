@@ -75,7 +75,10 @@ const AddSiteScreen = (props) => {
                 longitudeDelta: 0.0091,
               }}
               onPress={() => props.navigation.navigate("Map")}
-              style={ [styles.field, {flex: 1, width:'100%', height:'100%', borderRadius:15 }]}
+              style={[
+                styles.field,
+                { flex: 1, width: "100%", height: "100%", borderRadius: 15 },
+              ]}
               userInterfaceStyle={theme.dark ? "dark" : "light"}
             >
               <Marker
@@ -96,7 +99,7 @@ const AddSiteScreen = (props) => {
                 color={theme.colors.primary}
               />
             </TouchableOpacity>
-            <Text style={[styles.boxText, { color: theme.colors.primary }]}>
+            <Text style={[styles.boxText, { color: theme.colors.title}]}>
               Choose on map - click
             </Text>
           </View>
@@ -105,8 +108,8 @@ const AddSiteScreen = (props) => {
 
       {/* CAMERA PICKER */}
       <View style={{ width: "90%", height: 240 }}>
-        <Text style={[styles.labelText, { color: theme.colors.text }]}>
-          Picture
+        <Text style={[styles.labelText, { color: theme.colors.title}]}>
+          Site Image 
         </Text>
         <View
           style={[styles.field, { backgroundColor: theme.colors.foreground }]}
@@ -118,8 +121,8 @@ const AddSiteScreen = (props) => {
               color={theme.colors.primary}
             />
           </TouchableOpacity>
-          <Text style={[styles.boxText, { color: theme.colors.primary }]}>
-            Click on camera
+          <Text style={[styles.boxText, { color: theme.colors.title}]}>
+            Click on camera to add
           </Text>
         </View>
       </View>

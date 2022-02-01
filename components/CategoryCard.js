@@ -6,7 +6,7 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 
-const SelectCard = (props) => {
+const CategoryCard = (props) => {
   const theme = useTheme();
   const [isSelected, setIsSelected] = useState(false);
 
@@ -25,14 +25,14 @@ const SelectCard = (props) => {
       <Ionicons
         name={props.icon}
         size={25}
-        color={isSelected ? theme.colors.foreground : theme.colors.primary}
+        color={isSelected ? theme.colors.foreground : theme.colors.text}
       />
       <Text
         style={[
           styles.categoryText,
           isSelected
             ? { color: theme.colors.foreground }
-            : { color: theme.colors.primary },
+            : { color: theme.colors.text },
         ]}
       >
         {props.category}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 4, height: 4 },
     shadowRadius: 6,
-    borderRadius: 10
+    borderRadius: 10,
   },
 
   categoryText: {
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectCard;
+export default CategoryCard;

@@ -26,10 +26,16 @@ weekDays.forEach((item, idx) => {
   });
 });
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+const Item = ({
+  item,
+  onPress,
+  backgroundColor,
+  textColor,
+  smallTextColor,
+}) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor, {minWidth:'20%'}]}>
     <Text style={[styles.title, textColor]}>{item.date}</Text>
-    <Text style={[styles.title, textColor, { fontSize: 14 }]}>{item.day}</Text>
+    <Text style={[smallTextColor, { fontSize: 14 }]}>{item.day}</Text>
   </TouchableOpacity>
 );
 
@@ -38,17 +44,22 @@ const DateSelector = () => {
   const theme = useTheme();
 
   const renderItem = ({ item }) => {
-    const backgroundColor =
+   const backgroundColor =
       item.id === selectedId ? theme.colors.primary : theme.colors.foreground;
-    const color =
+
+    const colorText =
       item.id === selectedId ? theme.colors.foreground : theme.colors.primary;
+
+    const colorSmallText =
+      item.id === selectedId ? theme.colors.foreground : theme.colors.text;
 
     return (
       <Item
         item={item}
         onPress={() => setSelectedId(item.id)}
         backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
+        textColor={{ color: colorText }}
+        smallTextColor={{ color: colorSmallText }}
       />
     );
   };
@@ -61,7 +72,7 @@ const DateSelector = () => {
       extraData={selectedId}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
-      style={{ paddingVertical: 8, paddingHorizontal:2 }}
+      style={{ paddingVertical: 8, paddingHorizontal: 2 }}
       scrollEnabled={false}
     />
   );

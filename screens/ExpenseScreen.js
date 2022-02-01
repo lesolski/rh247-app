@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  SafeAreaView,
   View,
   Text,
   StyleSheet,
@@ -10,7 +11,6 @@ import {
   Keyboard,
   ScrollView,
   Image,
-  FlatList,
 } from "react-native";
 
 // Expo
@@ -25,6 +25,7 @@ import { useTheme } from "@react-navigation/native";
 import DateSelector from "../components/DateSelector";
 import CategoryCard from "../components/CategoryCard";
 
+// calculate week number
 var currentdate = new Date();
 var oneJan = new Date(currentdate.getFullYear(), 0, 1);
 var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
@@ -32,14 +33,6 @@ var weekNum = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7);
 
 const ExpenseScreen = (props) => {
   const theme = useTheme();
-  // selected
-  const [selectedId, setSelectedId] = useState({});
-
-  const handleSelection = (id) => {
-    var selectedId = selectedId;
-    if (selectedId === id) setSelectedId({ selectedItem: null });
-    else setSelectedId({ selectedItem: id });
-  };
 
   // image picker
   const [image, setImage] = useState(null);
@@ -54,6 +47,7 @@ const ExpenseScreen = (props) => {
       setImage(result.uri);
     }
   };
+
   return (
     <TouchableWithoutFeedback
       onPress={Keyboard.dismiss}
@@ -72,7 +66,9 @@ const ExpenseScreen = (props) => {
           <View
             style={[
               styles.categoryTitle,
-              { justifyContent: "space-between", alignItems: "center" },
+              {
+                justifyContent: "space-between",
+              },
             ]}
           >
             <Text
@@ -83,13 +79,13 @@ const ExpenseScreen = (props) => {
             <Text
               style={[
                 styles.categoryTitleText,
-                { color: theme.colors.title, fontSize: 12 },
+                { color: theme.colors.title, fontSize: 14 },
               ]}
             >
               Week {weekNum}
             </Text>
           </View>
-          <View style={{ height: 100 }}>
+          <View style={{ height: 100, width:'100%' }}>
             {/* render flat list here */}
             <DateSelector />
           </View>
@@ -169,7 +165,7 @@ const ExpenseScreen = (props) => {
           {/* UPLOAD PICTURE CARD */}
 
           {!image && (
-            <View style={{ flex: 1, minHeight: 400, width: "100%" }}>
+            <View style={{ flex: 1, minHeight: 200, width: "100%" }}>
               <View style={styles.categoryTitle}>
                 <Text
                   style={[
@@ -332,17 +328,15 @@ const styles = StyleSheet.create({
   },
 
   categoryTitle: {
-    marginTop: 13,
+    marginTop:10,
     width: "96%",
     alignItems: "flex-end",
     flexDirection: "row",
-    marginBottom: 13,
+    marginBottom: 6,
   },
 
   categoryTitleText: {
     fontSize: 20,
-    fontWeight: "300",
-    color: "grey",
     fontFamily: "roboto-mono",
   },
 
@@ -353,6 +347,7 @@ const styles = StyleSheet.create({
 
   cameraUploadBox: {
     flex: 1,
+    height: 200,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",

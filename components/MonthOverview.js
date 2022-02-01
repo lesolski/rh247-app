@@ -24,7 +24,7 @@ const MonthOverview = (props) => {
 
         <View style={styles.rightPart}>
           <View style={[styles.field, {flex: 2, backgroundColor: theme.colors.foreground}]}>
-            <Text style={[styles.bigText, { color: theme.colors.primary}] }>207</Text>
+            <Text style={[styles.bigText, { color: theme.colors.primary}] }>82</Text>
             <Text style={[styles.smallText, { color: theme.colors.text}]}>Hours</Text>
          </View>
           <View style={[styles.field, { flex:3, backgroundColor: theme.colors.foreground}]}>

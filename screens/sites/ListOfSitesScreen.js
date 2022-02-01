@@ -1,7 +1,13 @@
 // ./screens/sites/ListOfSitesScreen.js
 
 import React, { useState } from "react";
-import { View, FlatList, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  FlatList,
+  TextInput,
+  StyleSheet,
+  RefreshControl,
+} from "react-native";
 
 // Redux imports
 import { useSelector } from "react-redux";
@@ -14,18 +20,23 @@ import SiteCard from "../../components/SiteCard";
 import COLORS from "../../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 // pass item object and unpack it in SiteCard component via props and style it there
 const _renderItem = ({ item }) => <SiteCard item={item} />;
+
 const ListOfSitesScreen = () => {
   const listOfSites = useSelector((state) => state.sites.sites);
-  const [refreshing, setRefreshing] = useState();
+  const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
 
-  const _handleRefresh = () => {
-    console.log("i am refreshing list");
-    setRefreshing(!refreshing);
-  };
-  console.log(listOfSites)
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <View style={styles.mainContainer}>
       {/* Search Bar*/}
@@ -49,9 +60,14 @@ const ListOfSitesScreen = () => {
         renderItem={_renderItem}
         keyExtractor={(item) => item.id}
         style={styles.list}
-        contentContainerStyle={{ paddingVertical: 20, marginVertical: 10 }}
-        refreshing={false}
-        onRefresh={_handleRefresh}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={theme.colors.primary}
+          />
+        }
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -84,7 +100,7 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    width: "90%",
+    width: "100%",
   },
 });
 
