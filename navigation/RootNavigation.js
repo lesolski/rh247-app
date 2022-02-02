@@ -11,6 +11,9 @@ import ExpenseScreen from "../screens/ExpenseScreen";
 import HelpScreen from "../screens/HelpScreen";
 import RidesScreen from "../screens/RidesScreen";
 import EmptyScreen from "../screens/EmptyScreen";
+import ShipmentsScreen from "../screens/ShipmentsScreen";
+import RidingScreen from "../screens/RidingScreen";
+import InvoicesHistoryScreen from "../screens/InvoicesHistoryScreen";
 
 // Navigators
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -26,7 +29,7 @@ import { DarkTheme, LightTheme } from "../constants/Theme";
 const Drawer = createDrawerNavigator();
 
 const RootNavigation = () => {
-  const [isThemeDark, setIsThemeDark] = useState(false);
+  const [isThemeDark, setIsThemeDark] = useState(true);
 
   let theme = isThemeDark ? DarkTheme : LightTheme;
   const toggleTheme = React.useCallback(() => {
@@ -96,7 +99,7 @@ const RootNavigation = () => {
 
           <Drawer.Screen
             name="CheckIns"
-            component={EmptyScreen}
+            component={InvoicesHistoryScreen}
             options={{
               title: "Check IN/OUT",
               drawerIcon: ({ focused, size }) => (
@@ -111,7 +114,7 @@ const RootNavigation = () => {
 
           <Drawer.Screen
             name="Rides"
-            component={RidesScreen}
+            component={RidingScreen}
             options={{
               title: "Rides",
               drawerIcon: ({ focused, size }) => (
@@ -152,6 +155,21 @@ const RootNavigation = () => {
                 />
               ),
               headerShown: false,
+            }}
+          />
+
+          <Drawer.Screen
+            name="Shipments"
+            component={ShipmentsScreen}
+            options={{
+              title: "Shipments",
+              drawerIcon: ({ focused, size }) => (
+                <Ionicons
+                  name={focused ? "cube" : "cube-outline"}
+                  size={size}
+                  color={focused ? theme.colors.primary : theme.colors.text}
+                />
+              ),
             }}
           />
 

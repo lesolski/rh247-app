@@ -18,32 +18,71 @@ import {
 
 import { useTheme } from "@react-navigation/native";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { Ionicons } from "@expo/vector-icons";
 
 const DrawerContent = (props) => {
   const { isThemeDark, toggleTheme } = React.useContext(ThemeContext);
-  const theme = useTheme();  
+  const theme = useTheme();
 
   return (
-    <DrawerContentScrollView {...props}> 
+    <DrawerContentScrollView {...props} showsVerticalScrollIndicator={false}>
       {/** Avatar + Name */}
       <SafeAreaView style={styles.drawerContainer}>
         <View style={[styles.avatar, { borderColor: theme.colors.primary }]}>
-          <Image source={require("../assets/avatar.jpeg")} />
+          <Ionicons name="person" color={theme.colors.primary} size={80} />
         </View>
-        <Text style={[styles.userText, {color: theme.colors.contrast_text}]}>Sasha D.</Text>
+        <Text style={[styles.userText, { color: theme.colors.contrast_text }]}>
+          Sasha D.
+        </Text>
       </SafeAreaView>
 
       {/* Render Screen Fields */}
       <DrawerItemList {...props} labelStyle={{ fontFamily: "roboto-mono" }} />
 
       {/** Theme Switch Toggle */}
-      <Switch
-        trackColor={{ false: "#fff", true: theme.colors.text }}
-        thumbColor={theme.colors.primary}
-        onValueChange={toggleTheme}
-        value={isThemeDark}
-        style={{ alignSelf: "flex-end", marginRight: 10 }}
-      />
+      <View
+        style={{
+          marginVertical: 4,
+          marginHorizontal: 10,
+          flex: 1,
+          marginTop: 50,
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            padding: 8,
+            borderRadius: 4,
+          }}
+        >
+          <Ionicons
+            name={theme.dark ? "moon" : "moon-outline"}
+            size={24}
+            color={theme.dark ? theme.colors.primary : theme.colors.text}
+          />
+          <View style={styles.themeLabel}>
+            <Text
+              style={[
+                { fontFamily: "roboto-mono", color: theme.colors.text },
+                props.labelStyle,
+              ]}
+            >
+              Dark Theme
+            </Text>
+          </View>
+          <Switch
+            trackColor={{
+              false: theme.colors.foreground,
+              true: theme.colors.foreground,
+            }}
+            thumbColor={theme.colors.primary}
+            onValueChange={toggleTheme}
+            value={isThemeDark}
+            style={{ marginLeft: 63}}
+          />
+        </View>
+      </View>
     </DrawerContentScrollView>
   );
 };
@@ -52,7 +91,6 @@ const styles = StyleSheet.create({
   drawerContainer: {
     flex: 1,
     justifyContent: "center",
-    height: 200,
   },
 
   avatar: {
@@ -62,9 +100,8 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     borderWidth: 2,
     overflow: "hidden",
-    shadowColor: "black",
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.8,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   userText: {
@@ -75,6 +112,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "white",
     fontFamily: "roboto-mono",
+  },
+
+  themeLabel: {
+    marginLeft: 32,
   },
 });
 
