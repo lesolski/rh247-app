@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
-  StyleSheet,
-  TextInput,
+  StyleSheet, TextInput,
   TouchableOpacity,
   Pressable,
   TouchableWithoutFeedback,
@@ -17,13 +15,13 @@ import {
 import * as ImagePicker from "expo-image-picker";
 
 // Styling
-import COLORS from "../constants/colors";
+import COLORS from "../../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 
 // Components
-import DateSelector from "../components/DateSelector";
-import CategoryCard from "../components/CategoryCard";
+import DateSelector from "../../components/DateSelector";
+import CategoryCard from "../../components/CategoryCard";
 
 // calculate week number
 var currentdate = new Date();
@@ -31,7 +29,7 @@ var oneJan = new Date(currentdate.getFullYear(), 0, 1);
 var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
 var weekNum = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7);
 
-const ExpenseScreen = (props) => {
+const NewInvoiceScreen = (props) => {
   const theme = useTheme();
 
   // image picker
@@ -390,4 +388,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExpenseScreen;
+export default NewInvoiceScreen;

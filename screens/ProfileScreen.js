@@ -2,40 +2,53 @@
 
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useTheme } from "@react-navigation/native";
 
 // styling imports
-import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 
-const HomeScreen = (props) => {
+const Profile = (props) => {
+  const theme = useTheme();
+
+  const InfoRow = (props) => {
+    return (
+      <View
+        style={[
+          styles.infoBox,
+          { borderBottomWidth: 1, borderColor: theme.colors.text },
+        ]}
+      >
+        <Ionicons
+          name={props.iconName}
+          size={30}
+          color={theme.colors.text}
+        />
+        <Text style={[styles.infoText, { color: theme.colors.text }]}>
+          {props.info}
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.mainBox}>
-      <View style={styles.avatarBox}>
-        <Ionicons name="person-outline" size={80} color={COLORS.primary} />
+      <View style={[styles.avatarBox, { borderColor: theme.colors.primary }]}>
+        <Ionicons
+          name="person-outline"
+          size={80}
+          color={theme.colors.primary}
+        />
       </View>
       <View style={{ marginTop: 20 }}>
-        <Text style={styles.userNameText}>Sasha DJURIC</Text>
+        <Text style={[styles.userNameText, { color: theme.colors.title}]}>
+          {props.name}Sasa D.
+        </Text>
       </View>
-      <View style={styles.infoBox}>
-        <Ionicons name="mail-outline" size={30} color={COLORS.text} />
-        <Text style={styles.infoText}>sasa.djuric@remotehands24-7.com</Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Ionicons name="mail-outline" size={30} color={COLORS.text} />
-        <Text style={styles.infoText}>sasa.djuric@phoebe.fr</Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Ionicons name="location-outline" size={30} color={COLORS.text} />
-        <Text style={styles.infoText}>Vienna, Austria</Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Ionicons name="call-outline" size={30} color={COLORS.text} />
-        <Text style={styles.infoText}>+43 67763179171</Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Ionicons name="medal-outline" size={30} color={COLORS.text} />
-        <Text style={styles.infoText}>Field Engineer LVL 2</Text>
-      </View>
+      <InfoRow iconName="mail-outline" info={"sasa.djuric@gmail.com"} />
+      <InfoRow iconName="globe-outline" info={"Vienna, Austria"} />
+      <InfoRow iconName="medal-outline" info={"Filed Engineer LVL 2"} />
+      <InfoRow iconName="call-outline" info={"+38163179171"} />
+      <InfoRow iconName="logo-whatsapp" info={"+38163179171"} />
     </View>
   );
 };
@@ -46,21 +59,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   avatarBox: {
-    marginTop: 15,
     height: 200,
     width: 200,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
     borderWidth: 3,
-    borderColor: COLORS.primary,
   },
+
   userNameText: {
     fontSize: 32,
     fontFamily: "roboto-mono",
-    color: COLORS.text,
   },
+
   infoBox: {
     marginTop: 10,
     width: "80%",
@@ -68,14 +81,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottomColor: COLORS.text,
     borderBottomWidth: 1,
   },
+
   infoText: {
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: "roboto-mono",
-    color: COLORS.text,
   },
 });
 
-export default HomeScreen;
+export default Profile;
+

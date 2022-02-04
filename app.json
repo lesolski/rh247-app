@@ -10,6 +10,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins":  [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your colleagues and supervisors.",
+          "cameraPermission": "The app accesses your camera so that you can share photos with your colleagues and supervisors."
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -18,7 +27,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "dev"
+      "bundleIdentifier": "dev",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription":"We request this permission so that you can share images with us.",
+        "NSLocationUsageDescription": "Sharing location is crucial for some part of the apps to work. We only need this permission while you are using the app. We do not process your location when app is working in background"
+      }
     },
     "android": {
       "adaptiveIcon": {

@@ -14,7 +14,8 @@ export const LightTheme = {
     contrast_text: "rgb(33,33,33)",
     title: "rgb(18, 18, 18)",
     headerAndTabs: "rgb(66, 103, 178)",
-    headerText: "rgb(255, 255, 255)"
+    headerText: "rgb(255, 255, 255)",
+    fullConstrast: "rgb(0,0,0)"
     }
 };
 
@@ -29,7 +30,8 @@ export const DarkTheme = {
     contrast_text: "rgb(255,255,255)",
     title: "rgb(150, 150, 150)",
     headerAndTabs: "rgb(18, 18, 18)",
-    headerText: "rgb(29,185,83)"
+    headerText: "rgb(29,185,83)",
+    fullContrast: "rgb(255,255,255)"
   }
 };
 

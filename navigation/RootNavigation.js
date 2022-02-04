@@ -7,19 +7,18 @@ import { TouchableOpacity } from "react-native";
 import DrawerContent from "../screens/DrawerScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import ExpenseScreen from "../screens/ExpenseScreen";
 import HelpScreen from "../screens/HelpScreen";
-import RidesScreen from "../screens/RidesScreen";
 import EmptyScreen from "../screens/EmptyScreen";
 import ShipmentsScreen from "../screens/ShipmentsScreen";
 import RidingScreen from "../screens/RidingScreen";
-import InvoicesHistoryScreen from "../screens/InvoicesHistoryScreen";
+import CheckInOutScreen from "../screens/CheckInOutScreen";
 
 // Navigators
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer, DrawerActions } from "@react-navigation/native";
 import ColleaguesTabsNavigator from "./ColleaguesTabNavigation";
 import SitesStackNavigator from "./SitesStackNavigation";
+import InvoicesStackNavigator from "./InvoicesNavigation";
 
 // Styling
 import { Ionicons } from "@expo/vector-icons";
@@ -99,7 +98,7 @@ const RootNavigation = () => {
 
           <Drawer.Screen
             name="CheckIns"
-            component={InvoicesHistoryScreen}
+            component={CheckInOutScreen}
             options={{
               title: "Check IN/OUT",
               drawerIcon: ({ focused, size }) => (
@@ -129,7 +128,7 @@ const RootNavigation = () => {
 
           <Drawer.Screen
             name="Invoices"
-            component={ExpenseScreen}
+            component={InvoicesStackNavigator}
             options={{
               drawerLabel: "Invoices",
               drawerIcon: ({ focused, size }) => (
@@ -139,6 +138,7 @@ const RootNavigation = () => {
                   color={focused ? theme.colors.primary : theme.colors.text}
                 />
               ),
+              headerShown: false,
             }}
           />
 

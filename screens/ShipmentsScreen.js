@@ -10,7 +10,7 @@ const EmptyScreen = props => {
   return (
     <View style={styles.mainContainer}>
       <Ionicons 
-        name="cube-outline"
+        name="cube-sharp"
         size={160}
         color={theme.colors.primary}
       />
