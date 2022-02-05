@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import "react-native-reanimated";
 import { View, Text } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 
 // Redux
 import { Provider } from "react-redux";
@@ -15,6 +16,7 @@ import * as Font from "expo-font";
 
 // Navigation
 import RootNavigation from "./navigation/RootNavigation";
+import { useTheme } from "@react-navigation/native";
 
 // Permissions
 import * as ImagePicker from "expo-image-picker";
@@ -27,11 +29,12 @@ const fetchFonts = () => {
   });
 };
 
-export default function App() {
+const App = () => {
   // Loader state
   const [fontLoaded, setFontLoaded] = useState(false);
   const [cameraAllowed, setCameraAllowed] = useState(false);
   const [locationAllowed, setLocationAllowed] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => {
     (async () => {
@@ -76,3 +79,5 @@ export default function App() {
     </View>
   );
 }
+
+export default App;

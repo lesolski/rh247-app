@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 
 // Screens
 import DrawerContent from "../screens/DrawerScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import HelpScreen from "../screens/HelpScreen";
-import EmptyScreen from "../screens/EmptyScreen";
 import ShipmentsScreen from "../screens/ShipmentsScreen";
 import RidingScreen from "../screens/RidingScreen";
 import CheckInOutScreen from "../screens/CheckInOutScreen";
@@ -220,6 +220,12 @@ const RootNavigation = () => {
           />
         </Drawer.Navigator>
       </NavigationContainer>
+
+      {/* status bar is on blue and black - so it should always stay white
+      only problem is that on light theme in drawer the time indicator is not visible,
+      #TODO find a way to solve that sometime - skip for now
+      */}
+      <StatusBar style="light"/>
     </ThemeContext.Provider>
   );
 };

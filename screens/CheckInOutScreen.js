@@ -1,27 +1,53 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
-const StartEngine = (props) => {
+import Task from "../components/Task.js";
+
+const Tasks = (props) => {
+  const [isSelected, setIsSelected] = useState(false);
   const theme = useTheme();
+
+
   return (
     <View style={styles.mainContainer}>
-      <View
-        style={[
-          styles.outerCircle,
-          {
-            borderColor: theme.colors.primary,
-            backgroundColor: theme.colors.background,
-            shadowColor: theme.colors.primary
-          },
-        ]}
+      <ScrollView
+        style={styles.tasks}
+        contentContainerStyle={{
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 2,
+        }}
       >
-        <View
-          style={[styles.innerCircle, { borderColor: theme.colors.primary }]}
+        <Task selected={false}/>
+        <Task onPress={() => setIsSelected(!isSelected)} selected={isSelected}/>
+        <Task selected={false}/>
+
+      </ScrollView>
+      <View style={styles.checkInOut}>
+        <TouchableOpacity onPress={() => ""}>
+          <Ionicons
+            name={"finger-print-outline"}
+            size={80}
+            color={isSelected ? theme.colors.primary : theme.colors.text}
+          />
+        </TouchableOpacity>
+        <Text
+          style={{
+            fontFamily: "roboto-mono",
+            color: theme.colors.text,
+            fontSize: 14,
+          }}
         >
-          <Text style={{fontSize:12, fontFamily:'roboto-mono', color:'#ccc'}}>ENGINE</Text>
-          <Text style={{fontSize:16, fontFamily:'roboto-mono', color:"#fff"}}>START</Text>
-        </View>
+          {isSelected ? "Hold for 3 seconds to check IN" : "Select a task"}
+        </Text>
       </View>
     </View>
   );
@@ -33,29 +59,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  outerCircle: {
-    height: 100,
-    width: 100,
-    borderRadius: 150,
-    borderWidth: 4,
-    borderColor: "#ccc",
-    justifyContent: "center",
-    alignItems: "center",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 12,
+
+  tasks: {
+    width: "100%",
   },
-  innerCircle: {
-    height: 80,
-    width: 80,
-    borderRadius: 140,
-    borderWidth: 2,
+
+  checkInOut: {
+    flex: 0.25,
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
 });
 
-export default StartEngine;
+export default Tasks;

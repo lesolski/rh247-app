@@ -5,16 +5,19 @@ import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import CircularProgress from "react-native-circular-progress-indicator";
 
 // Styling
-import { useTheme } from "@react-navigation/native";
+import { useTheme, useIsFocused } from "@react-navigation/native";
 
 // Components
 import MonthOverview from "../components/MonthOverview";
 
 const HomeScreen = () => {
   const theme = useTheme();
+  const isFocused = useIsFocused();
+  console.log(isFocused);
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        {isFocused &&
         <CircularProgress
           value={82}
           radius={160}
@@ -30,7 +33,9 @@ const HomeScreen = () => {
           activeStrokeColor={theme.colors.primary}
           inActiveStrokeColor={theme.colors.foreground}
           inActiveStrokeOpacity={0.7}
-        />
+          clockwise={true}
+          swap={isFocused}
+        /> }
       </View>
       <SafeAreaView style={{ flex: 1, justifyContent:'center'}}>
         <Text
