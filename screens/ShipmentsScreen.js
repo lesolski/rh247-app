@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
 
-const EmptyScreen = props => {
+const ShipmentsScreen = (props)=> {
   const theme = useTheme();
   return (
     <View style={styles.mainContainer}>
@@ -14,7 +14,7 @@ const EmptyScreen = props => {
         size={160}
         color={theme.colors.primary}
       />
-      <Text style={{fontSize:30, fontFamily:'roboto-mono', textAlign:'center', color: theme.colors.text}}>No shippments assigned</Text>
+      <Text style={{width:"90%", fontSize:30, fontFamily:'roboto-mono', textAlign:'center', color: theme.colors.text}}>No shipments assigned</Text>
     </View>
   )
 };
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default EmptyScreen;
+export default ShipmentsScreen;

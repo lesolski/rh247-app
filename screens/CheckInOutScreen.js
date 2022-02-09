@@ -3,34 +3,48 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
+  FlatList,
   TouchableOpacity,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 import Task from "../components/Task.js";
+import tasks from "../data/tasks.js";
 
 const Tasks = (props) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(null);
   const theme = useTheme();
 
+  const _renderItem = ({ item }) => {
+    const backgroundColor = item.id === isSelected ? theme.colors.primary : theme.colors.foreground;
+    const color = item.id === isSelected ? theme.colors.primary : theme.colors.text;
+    const opacity = item.id === isSelected ? 1 : 0.8;
+
+    return (
+      <Task
+        item={item}
+        onPress={() => setIsSelected(item.id)}
+        isSelected={isSelected}
+        color={color}
+        backgroundColor={backgroundColor}
+        opacity={opacity}
+      />
+    );
+  };
 
   return (
     <View style={styles.mainContainer}>
-      <ScrollView
-        style={styles.tasks}
-        contentContainerStyle={{
-          justifyContent: "center",
-          alignItems: "center",
-          flex: 2,
-        }}
-      >
-        <Task selected={false}/>
-        <Task onPress={() => setIsSelected(!isSelected)} selected={isSelected}/>
-        <Task selected={false}/>
-
-      </ScrollView>
+      <FlatList
+        data={tasks}
+        renderItem={(item) => _renderItem(item)}
+        keyExtractor={(item) => item.id}
+        extraData={isSelected}
+        contentContainerStyle={{ alignItems: "center", width: "100%" }}
+        style={{ flex: 1, width: "100%" }}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      />
       <View style={styles.checkInOut}>
         <TouchableOpacity onPress={() => ""}>
           <Ionicons

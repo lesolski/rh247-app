@@ -3,18 +3,23 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 
-const Task = (props) => {
+const Task = ({item, onPress, color, backgroundColor, opacity={opacity}}) => {
   const theme = useTheme();
+  console.log(color);
+  console.log(backgroundColor);
+  console.log(opacity);
   return (
+    <View opacity={opacity}>
     <TouchableOpacity
-      onPress={props.onPress}
+      onPress={onPress}
       style={[
         styles.border,
         {
-          backgroundColor: theme.colors.foreground, 
           shadowColor: theme.colors.primary,
+          backgroundColor : theme.colors.foreground
         },
       ]}
+      opacity={opacity}
     >
       <View style={styles.up}>
         <View>
@@ -22,38 +27,43 @@ const Task = (props) => {
             style={{
               fontFamily: "roboto-mono",
               fontSize: 26,
-              color: props.selected ? theme.colors.primary : theme.colors.text,
+              color: color
             }}
           >
-            {" "}
-            WAW82{" "}
+            {item.client}
           </Text>
         </View>
         <Ionicons
           name="globe-outline"
-          color={props.selected ? theme.colors.primary : theme.colors.text}
+          color={color}
           size={25}
         />
       </View>
-      <View style={styles.mid}></View>
+      <View style={styles.mid}>
+        <Text style={{color: color, marginTop:10}}>{item.client}</Text>
+        <Text style={{color: color}}>{item.client}</Text>
+        <Text style={{color: color, marginBottom:10}}>{item.client}</Text>
+      </View>
       <View style={styles.down}>
         <View>
           <Ionicons
             name="time-outline"
-            color={props.selected ? theme.colors.primary : theme.colors.text}
+            color={color}
             size={25}
           />
         </View>
         <View></View>
       </View>
     </TouchableOpacity>
+      </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   border: {
     height: 160,
-    width: "95%",
+    minWidth: "90%",
+    maxWidth:"90%",
     borderRadius: 25,
     overflow: "hidden",
     shadowRadius: 20,
@@ -74,6 +84,9 @@ const styles = StyleSheet.create({
 
   mid: {
     flex: 3,
+    justifyContent:'space-between',
+    alignItems:'flex-start',
+    marginLeft:10,
   },
 
   down: {
@@ -85,6 +98,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
   },
+
 });
 
 export default Task;
